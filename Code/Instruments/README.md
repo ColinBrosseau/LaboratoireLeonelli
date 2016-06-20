@@ -1,8 +1,8 @@
 # Contenu de ce répertoire
 
 
-|Left align|Left align|Left align|
+|Fichier|Fabricant|Modèle|
 |:---------|:----------|:----------|
-|SR830c|Standford Instruments|SR830|
-|U1000|Instruments SA|U1000|
-|WinspecCOM|Princeton Instruments ???|Winspec|
+|SR830c.py|Standford Instruments|SR830|
+|U1000.py|Instruments SA|U1000|
+|WinspecCOM.py|Princeton Instruments ???|Winspec|
