@@ -7,4 +7,4 @@
 |spikes.py|Enlever des points chauds (Cosmic Ray)|
 
 ## Todo
-[] importSPE.py ne doit pas contenir pixel->longueur d'onde
+- [ ] importSPE.py ne doit pas contenir pixel->longueur d'onde
