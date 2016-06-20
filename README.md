@@ -5,7 +5,9 @@ Codes et Procédures pour utiliser les instruments du laboratoire de Richard Lé
 
 ||Contenu|
 |:---------|:----------|
-|Code|Code: instruments, expériences, utilitaires|
-|Documentation|Documentation: procédurier, manuels|
-
+|Code|Experiences|
+||Instruments|
+||Utilitaires|
+|Documentation|Manuels|
+|Procedurier|
 
