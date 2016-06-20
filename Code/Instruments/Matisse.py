@@ -7,6 +7,7 @@ Controls the laser Matisse (Sirah)
 Todo:
 	document code
         exit wavemeter from here
+        exit Millenia (power) from here
 """
 
 import visa
@@ -19,6 +20,9 @@ def testBit(int_type, offset):
 
 #####
 
+"""
+Millenia
+"""
 class power():
     def __init__(self, laser):
         self.laser = laser
