@@ -3,7 +3,9 @@
 
 |Fichier|Fabricant|Modèle|
 |:---------|:----------|:----------|
-|Matisse.py|Sirah|Matisse TS|
+||PicoQuant|HydraHarp 400|
+|Matisse.py|Spectra Physics (Sirah)|Matisse TS|
+||Spectra Physics|Milleria Pro 10SJSPG|
 |PE842.py|Newport|842 PE|
 |RacalDana.py|Racal Dana|1991|
 |sp275.m|Acton Research Corporation|SpectraPro 275|
@@ -16,6 +18,7 @@
 |WinspecCOM.py|Roper Scientific|Winspec32|
 
 ## Todo
-- [ ] trivista.m vérifier que c'est version la plus récente
+- [X] trivista.m vérifier que c'est version la plus récente
 - [ ] SR400 matlab merge les deux versions
-
+- [ ] ajout hydraharp
+- [ ] ajout millenia
