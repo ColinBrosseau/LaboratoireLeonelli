@@ -289,7 +289,18 @@ function varargout = sr830(fonction,varargin)
 %   ENREGISTRE_CONFIGURATION
 %               Sauvegarde l'etat du SR830 dans un fichier (*.m)
 %               sr830('ENREGISTRE_CONFIGURATION',fichier)
+%
+% Cette fonction a besoin des fonctions suivantes:
+% - Fonction 'gpib' du 'package' gpib de Tom Davis 
+%   que l'on peut trouver a l'adresse 
+%   http://www.mathworks.com/matlabcentral/fileexchange/216
+% - Fonctions ibfind, ibpad, ibrsc, ibsic et ibsre 
+%   du 'package' NI GPIB toolbox de Alaa Makdissi
+%   que l'on peut trouver a l'adresse 
+%   http://www.mathworks.com/matlabcentral/fileexchange/3140
+%
 %Colin Fevrier 2006
+
 
 global SR830
 global SR830_PRESENT
