@@ -8,3 +8,4 @@
 
 ## Todo
 - [ ] importSPE.py ne doit pas contenir pixel->longueur d'onde
+- [ ] auto step and glue +  explications
