@@ -21,7 +21,7 @@ function varargout = SP275(fonction,varargin)
 %   ?GRATING
 %               Reseau actuel    
     
-%
+% 
 %26 mars 2015
 %   Colin
 %   Creation a partir de racal
