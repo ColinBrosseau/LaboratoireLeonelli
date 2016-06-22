@@ -3,6 +3,7 @@
 
 |Fichier|Fonction|
 |:---------|:----------|
+|Bomem|(Répertoire) Traitement des données du Bomem|
 |importSPE.py|Importer des fichiers .spe, calculer pixel->longueur d'onde|
 |spikes.py|Enlever des points chauds (Cosmic Ray)|
 
