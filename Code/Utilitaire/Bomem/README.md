@@ -7,3 +7,5 @@
 |fcr*.mat|Calibrations de la réponse spectrale|
 
 ## Todo
+
+- [ ] convertir les fichiers .mat en un format plus facile (ex.: .csv)
