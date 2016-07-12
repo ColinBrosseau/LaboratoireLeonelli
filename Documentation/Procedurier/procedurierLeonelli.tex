@@ -132,9 +132,25 @@ De son côté, le laboratoire {\it U1000} est complètement implémenté avec Py
 
 \section{Matlab}%\index{Matlab}
 
+À moins d'indication contraire, les codes Matlab utilisés au laboratoire ont été testés avec la version 7.1 (R14).
+
+\subsection{Codes supplémentaires}
+
+Plusieurs instruments sont contrôlés par cable GPIB.
+On utilise deux ``modules'' associés:
+\begin{itemize}
+\item http://www.mathworks.com/matlabcentral/fileexchange/216
+\item http://www.mathworks.com/matlabcentral/fileexchange/3140
+%\caption{Modules GPIB utilisés par Matlab}
+\label{tableModulesGPIBMatlab}
+\end{itemize}
+Les deux sont complémentaires.
+Le premier, de Tom Davis, sert à la communication.
+Le deuxième, d'Alaa Makdissi, est surtout utilisé pour l'initialisation.
+
 \section{Python}\index{Python}
 
-Une partie des instruments du laboratoire peuvent être contrôlés avec Python.
+Plusieurs instruments du laboratoire peuvent être contrôlés avec Python.
 En général, il s'agit des instruments situés dans le D405 (Labo Raman).
 
 À l'heure actuelle, la manière la plus simple d'installer python sur windows est d'utiliser la {\bf distribution anaconda} https://www.continuum.io/downloads.
