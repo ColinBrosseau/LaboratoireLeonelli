@@ -236,15 +236,23 @@ print(inst.read("*IDN?"))
 
 \subsection{Détecteur InGaAs}
 
-Le détecteur InGaAs\footnote{Numéro de modèle: ???} est sensible dans la gamme ???-??? nm.
+Le détecteur InGaAs\footnote{Numéro de modèle: J23D-M205-R01M-60-1.9, http://www.teledynejudson.com/files/pdf/ingaas\_PB4206.pdf} est sensible dans la gamme 1000 - 1900 nm\footnote{La longueur d'onde maximale détectée dépend de la température. Elle est de 1900 nm à 20 $^{\circ}$C) mais passe à 1810 nm à -85 $^{\circ}$C. Une estimation rapide porte la longueur d'onde maximale à $\approx$ 1750 nm à température de l'azote liquide.}.
 
 Ce détecteur a besoin d'azote liquide pour fonctionner.
 Il est recommandé de pomper le vide d'isolation tous les 6 mois.
 
-Le signal de ce détecteur est amplifié\footnote{Amplificateur ???}.
+Le signal de ce détecteur est amplifié\footnote{Amplificateur PA-7-70, RD=70 G$\Omega$, CD=870 pF, RS=10.36 $\Omega$}.
+
+\begin{figure}[h]
+  \centering\includegraphics[width=.5\linewidth,height=7cm,keepaspectratio]{Bomem-InGaAs-Sensibilite-LongueurOnde}
+  \caption{Sensibilité détecteur Bomem InGaAs (à 20 $^{\circ}$C)}
+  \label{fig:pdaingaas}
+\end{figure}
+
+
 
 \subsection{Détecteur InSb}
-Le détecteur InGaAs\footnote{Numéro de modèle: ???} est sensible dans la gamme ???-??? nm.
+Le détecteur InSb\footnote{Numéro de modèle: ???} est sensible dans la gamme ???-??? nm.
 
 Ce détecteur a besoin d'azote liquide pour fonctionner.
 Il est recommandé de pomper le vide d'isolation tous les 6 mois.
