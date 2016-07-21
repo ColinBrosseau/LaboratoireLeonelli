@@ -276,7 +276,8 @@ Les caméras Princeton Instruments (la PDA InGaAs et la Pixis) sont contrôlées
 Les deux sont mutuellement exclusifs à un instant donné.
 
 Lorsqu'on change de détecteur (passant de la PDA à la Pixis ou inversement), il {\bf faut} redémarrer Winspec et faire la procédure de détection.
-Parfois ca ne fonctionne pas et il faut débrancher le cable USB du Trivista.
+Parfois ca ne fonctionne pas: il faut débrancher le cable USB du Trivista et recommencer.
+Il arrive également qu'on doive redémarrer complètement l'ordinateur
 
 \subsection{Winspec}
 
@@ -285,7 +286,7 @@ Il n'y a pas de calibration Pixel $\rightarrow$ Longueur d'onde.
 
 \subsection{Matlab}
 
-Matlab peut contrôler les caméras Princeton Instruments via la librairie pvcam:
+Matlab peut contrôler les caméras Princeton Instruments via la librairie pvcam\footnote{Le logiciel PVCAM est disponible à l'adresse \url{http://ftp.piacton.com/Public/Software/Official/PVCAM/pvcam32.exe}. La documentation relative à PVCAM se trouve à \url{http://ftp.piacton.com/Public/Manuals/Princeton\%20Instruments/PVCAM\%202.7\%20Software\%20User\%20Manual.pdf}}:
 \begin{center}
   \smartdiagramset{border color=none,
     uniform color list=gray!100!black for 10 items,
@@ -297,7 +298,72 @@ Matlab peut contrôler les caméras Princeton Instruments via la librairie pvcam
 
 \begin{lstlisting}[frame=single,caption={Exemple d'utilisation des caméras Princeton Instruments avec Matlab},label={lst:excameraprincetoninstruments},breaklines=true,]  % Start your code-block
 
-???
+% initialise la communication
+camera_PrincetonInstruments('initialise')
+
+% temperature cible du detecteur
+Camera_PrincetonInstruments('TEMP_SETPOINT')  % lit
+Camera_PrincetonInstruments('TEMP_SETPOINT', -71)  % ecrit
+% temperature reele du detecteur
+Camera_PrincetonInstruments('TEMP')  % lit
+
+% nom de la camera (tel que vu par Winspec)
+Camera_PrincetonInstruments('nom')
+% nom du detecteur CCD
+Camera_PrincetonInstruments('CHIP_NAME')
+
+% lit/ecrit le gain
+Camera_PrincetonInstruments('GAIN')
+Camera_PrincetonInstruments('GAIN', 2)
+% lit/ecrir la vitesse de l'ADC
+Camera_PrincetonInstruments('SPEED')
+Camera_PrincetonInstruments('SPEED','100 kHz')
+
+% taille (en pixels) du detecteur
+[xsize, ysize] = Camera_PrincetonInstruments('DIMENSION_DETECTEUR')
+
+% obturateur mecanique
+Camera_PrincetonInstruments('SHUTTER','ferme')  % ferme
+Camera_PrincetonInstruments('SHUTTER','ouvert')  % ouvre
+
+% mesure un spectre (somme ``verticalement'') sur toute la plage disponible
+PARAM.window = struct
+PARAM.window.s1 = 0;  % premier pixel ``horizontal'' (0-based)
+PARAM.window.s2 = xsize - 1;  % dernier pixel ``horizontal'' (0-based)
+PARAM.window.sbin = 1;  % somme (bin) ``horizontal''
+PARAM.window.p1 = 10;  % premier pixel ``vertical'' (0-based)
+PARAM.window.p2 = ysize - 5;  % dernier pixel ``vertical'' (0-based)
+% Le parametre PARAM.window.sbin est calcule automatiquement pour la fonction 'spectre'
+PARAM.t_acc = 5; % 5 secondes d'acquisition
+PARAM.n_acc = 2; % 2 acquisitions
+data = camera_PrincetonInstruments('spectre', PARAM) % prend la mesure
+plot(data)
+
+% mesure une image simple (tout le detecteur, 1 seconde d'acquisition)
+data = camera_PrincetonInstruments('image');
+
+% mesure une image, somme ``verticalement'', acquisition de 2 secondes
+PARAM.window  % conserve les parametre precedents
+PARAM.window.pbin = 5  % somme ``verticalement'' 5 pixels
+PARAM.t_acc=2  % acquisition de 2 secondes
+data = camera_PrincetonInstruments('image',PARAM);
+
+% Lit des parametres arbitraires (pas definis dans la fonction Camera_PrincetonInstruments.m)
+% Pour la liste et la signification des parametre de PVCAM, se referer a
+%  http://ftp.piacton.com/Public/Manuals/Princeton\%20Instruments/PVCAM\%202.7\%20Software\%20User\%20Manual.pdf
+% distance 'horizontale' entre les pixels
+Camera_PrincetonInstruments('GET_PARAMETER', 'PARAM_PIX_SER_DIST')
+% nombre de bits valides dans les donnees retournees
+Camera_PrincetonInstruments('GET_PARAMETER', 'PARAM_BIT_DEPTH')
+
+% De maniere similaire que 'GET_PARAMETER', on peut ecrire un parametre avec 'SET_PARAMETER'.
+
+% distance 'horizontale' et 'verticale' entre les pixels (utile pour la calibration pixel -> longueur d'onde)
+[x,y] = Camera_PrincetonInstruments('PIXEL_DIMENSION')
+
+% ferme la communication
+Camera_PrincetonInstruments('fermer')
+
 \end{lstlisting}
 
 \subsection{PDA InGaAs}\index{PDA InGaAs}
@@ -313,7 +379,9 @@ Il est recommandé de pomper le vide d'isolation tous les 6 mois.
 En général, on mesure 30 000 comptes {\it noirs} par seconde.
 Étant donné que ce détecteur sature à 64 000 comptes, on limite l'accumulation à une seconde.
 
-On peut contrôler ce détecteur avec la fonction Matlab générique ???.
+On utilise la sortie ??? du contrôleur pour l'obturateur mécanique.
+
+On peut contrôler ce détecteur avec la fonction Matlab générique \verb!Camera_PrincetonInstruments.m!.
 
 \begin{figure}[h]
   \centering\includegraphics[width=.5\linewidth,height=7cm,keepaspectratio]{pdaInGaAs}
@@ -328,7 +396,9 @@ Elle est refroidie par effet Pelletier à -70 $^{\circ}$C.
 
 Cette caméra a un bruit de lecture d'environ 600 comptes et un bruit noir suffisamment bas pour être négligeable dans la plupart des cas.
 
-Tout comme la PDA InGaAS, on peut contrôler ce détecteur avec la fonction Matlab générique ???.
+On utilise la sortie ??? du détecteur pour l'obturateur mécanique.
+
+Tout comme la PDA InGaAS, on peut contrôler ce détecteur avec la fonction Matlab générique \verb!Camera_PrincetonInstruments.m!.
 
 \begin{figure}[h]
   \centering\includegraphics[width=.5\linewidth]{pixis}
