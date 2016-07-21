@@ -10,3 +10,8 @@
 ## Todo
 - [ ] importSPE.py ne doit pas contenir pixel->longueur d'onde
 - [ ] auto step and glue +  explications
+- [ ] convertion pixel -> longueur d'onde
+  - [ ] Trivista
+	- [ ] général
+	- [ ] spectro double avec configurations différentes
+  - [ ] U1000

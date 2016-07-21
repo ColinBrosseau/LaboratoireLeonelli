@@ -24,4 +24,4 @@
 - [ ] SR400 matlab merge les deux versions
 - [ ] ajout hydraharp
 - [ ] ajout millenia
-- [X] ajout camera_PrincetonInstruments.m
+- [X] ajout Camera_PrincetonInstruments.m
