@@ -169,20 +169,20 @@ On installe des des modules supplémentaires de la facon suivante (??? à compl�
 Les modules nécessaires pour pouvoir utiliser les scripts concu pour le laboratoire sont énumérés dans la table \ref{tableModulesNecessaires}.
 
 \begin{table}[]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{ll}
-\multicolumn{1}{c}{\textbf{Module}} & \multicolumn{1}{c}{\textbf{Rôle}}                                \\ \hline
-visa                                & contrôle des instruments (RS232, GPIB)                           \\
-struct                              & utilisé par SR830c pour lire le flux binaire                     \\
-yaml                                & lire/écrire des fichiers sous format YAML                        \\
-collections                         & utilisé pour créer des dictionnaires ordonnés                    \\
-pandas                              & manipulation simplifiée des structures des données scientifiques \\
-matplotlib                          & tracer des graphiques                                            \\
-\end{tabular}%
-}
-\caption{Modules nécessaires au fonctionnement des scripts du laboratoire}
-\label{tableModulesNecessaires}
+  \caption{Modules nécessaires au fonctionnement des scripts du laboratoire}
+  \label{tableModulesNecessaires}
+  \centering
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{ll}
+      \multicolumn{1}{c}{\textbf{Module}} & \multicolumn{1}{c}{\textbf{Rôle}}                                \\ \hline
+      visa                                & contrôle des instruments (RS232, GPIB)                           \\
+      struct                              & utilisé par SR830c pour lire le flux binaire                     \\
+      yaml                                & lire/écrire des fichiers sous format YAML                        \\
+      collections                         & utilisé pour créer des dictionnaires ordonnés                    \\
+      pandas                              & manipulation simplifiée des structures des données scientifiques \\
+      matplotlib                          & tracer des graphiques                                            \\
+    \end{tabular}%
+    }
 \end{table}
 
 \subsubsection{visa}\index{visa}
@@ -233,9 +233,112 @@ print(inst.read("*IDN?"))
 
 \section{Bomem}\index{Bomem}
 
-\subsection{Détecteur Silicium}
+\subsection{Démarrage}
 
-\subsection{Détecteur InGaAs}
+\begin{itemize}
+\item Allumer le Bomem (interrupteur en bas en arrière).
+\item Allumer le processeur vectoriel (DA-PC).
+\item Démarrer le logiciel BOMEM PCDA.
+\item Lorsque l'affichage du processeur vectoriel passe à 6, cliquer sur OK dans la fenètre du logiciel.
+\item Charger une configuration appropriée pour le détecteur/lame séparatrice (Experiment>Open...).
+\item Dans la configuration, spécifier
+  \begin{itemize}
+    \item de quel côté se trouve le détecteur (gauche ou droite)
+    \item quelle est l'entrée utilisée par le détecteur 1,2,3, etc.
+  \end{itemize}
+\item Connecteur la sortie de l'amplificateur du détecteur dans l'entrée spécifiée.
+\end{itemize}
+
+\subsubsection{Configuration relative aux détecteur}
+
+La nature du détecteur influence les paramètres de la mesure.
+La table~\ref{table:configurationBomemDetecteur} indique les paramètres recommandés en fonction du détecteur utilisé.
+
+% table générée avec http://truben.no/table/
+\begin{table}
+  \caption{Configuration du Bomem relative au détecteur}
+  \label{table:configurationBomemDetecteur}
+  \centering
+  \resizebox{\textwidth}{!}{%  
+    \begin{tabular}{c|ccccc}
+      ~               & Si           & MCT          & InSb         & InGaAs       & Ge (vis)     \\ \hline
+      Source          & 2000 - 25000 & 2000 - 25000 & 2000 - 25000 & 2000 - 25000 & 2000 - 25000 \\
+      Beamsplitter    & 4000 - 25000 & 1200 - 10000 & 2000-25000   & 4000 - 25000 & 4000 - 25000 \\
+      Filter          & 0 - 63192    & 0 - 63192    & 0 - 63192    & 0 - 63192    & 0 - 63192    \\
+      Detector        & 9999 - 25000 & 2000 - 8000  & 3000 - 14000 & 5000 - 12000 & 5000 - 13000 \\
+      Time Delay (us) & 1.6          & 4            & 4            & 0.1          & 160          \\
+      Speed (cm/s)    & 0.5          & 0.15         & 0.05         & 0.1          & 0.5          \\
+    \end{tabular}
+  }
+\end{table}
+
+\subsection{Logiciel du Bomem}
+
+Dans le logiciel du Bomem, le bouton \fbox{\%ADC} permet d'avoir une idée de l'intensité du signal.
+Le détecteur sature lorsqu'il indique {\bf >100}.
+Lorsque le détecteur est complètement saturé, il indique {\bf 0}.
+
+\subsection{Transfert des données de l'ordinateur du Bomem vers l'extérieur}
+
+Pour transférer des données à l'extérieur de l'ordinateur de contrôle du Bomem, il y a deux possibilités\footnote{Les clés USB ne fonctionnent pas sur cet ordinateur.}:
+\begin{itemize}
+\item disquettes
+\item connection réseau\footnote{L'ordinateur de contrôle du Bomem est très vieux et ne doit jamais être laissé connecté au réseau en permanence.}
+  \begin{itemize}
+    \item l'ordinateur du Bomem apparait sur le réseau PMC sous \verb!\\Bomem333!. Les données se trouvent dans le répertoire {\it DONNEES}.
+    \end{itemize}
+\end{itemize}
+
+
+
+\subsection{Transfert des mesures vers Matlab}
+
+On utilise la fonction \verb!bomem.m! pour convertir les données binaires prises par le logiciel en variables Matlab.
+Code~\ref{lst:bomem} montre comment utiliser cette fonction.
+
+\begin{lstlisting} [
+    frame=single,
+    caption={Lecture des données brutes du Bomem avec Matlab},
+    label={lst:bomem},
+    breaklines=true,
+    basicstyle=\small,
+    style      = Matlab-editor,
+    basicstyle = \mlttfamily,
+]
+
+[x,y] = bomem(fichier_sans_extension_spc, unite, calibration)
+
+% fichier_sans_extension_spc
+%     nom du fichier.spc (on ne doit pas mettre l'extension .spc)
+
+% unite: 
+%     0	cm-1
+%     1	eV
+%     2	A
+
+% calibration
+%     0	pas de calibration
+%     1	Si - lame quartz
+%     2	InGaAs - lame quartz
+%     3	Ge - lame CaF2
+%     4	InSb - lame quartz
+%     5	InSb - lame CaF2
+
+% x
+%     position spectrale (depend de unite)
+% y
+%     intensite mesuree
+
+\end{lstlisting}
+
+\subsection{Détecteurs}
+
+\subsubsection{Détecteur Silicium}
+
+Le détecteur Silicium est utilisé pour les mesures faites dans le visible.
+Il utilise l'amplificateur installé sur le côté de son support.
+
+\subsubsection{Détecteur InGaAs}
 
 Le détecteur InGaAs\footnote{Numéro de modèle: J23D-M205-R01M-60-1.9, http://www.teledynejudson.com/files/pdf/ingaas\_PB4206.pdf} est sensible dans la gamme 1000 - 1900 nm\footnote{La longueur d'onde maximale détectée dépend de la température. Elle est de 1900 nm à 20 $^{\circ}$C) mais passe à 1810 nm à -85 $^{\circ}$C. Une estimation rapide porte la longueur d'onde maximale à $\approx$ 1750 nm à température de l'azote liquide.}.
 
@@ -253,7 +356,7 @@ Pour l'utilisation avec le Bomem, on utilise la sortie DC (premier étage).
 
 
 
-\subsection{Détecteur InSb}
+\subsubsection{Détecteur InSb}
 Le détecteur InSb\footnote{Numéro de modèle: J10D-M204-R01M-60-SP28, http://www.judsontechnologies.com/files/pdf/InSb\_shortform\_Mar2003.pdf} est sensible dans la gamme 1000-2800 nm.
 
 Ce détecteur a besoin d'azote liquide pour fonctionner.

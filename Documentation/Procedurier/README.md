@@ -20,9 +20,10 @@ En utilisant make:
 
 ## Todo
 - Bomem
-  - [ ] Paramètres optimaux pour les différents détecteurs
-  - [ ] Procédure pour tranférer les données
-  - [ ] disquettes
-  - [ ] réseau (attention de débrancher après)
-  - [ ] procédure de démarage
-  - [ ] interprétation de % (saturé = 0%)
+  - [X] Paramètres optimaux pour les différents détecteurs
+  - [X] Procédure pour tranférer les données
+    - [X] disquettes
+    - [X] réseau (attention de débrancher après)
+  - [X] procédure de démarage
+  - [X] interprétation de % (saturé = 0%)
+  - [ ] débloquer manuellement le diasphragme
