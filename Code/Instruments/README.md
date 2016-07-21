@@ -3,6 +3,7 @@
 
 |Fichier|Fabricant|Modèle|
 |:---------|:----------|:----------|
+|Camera_PrincetonInstruments.m|Princeton Instruments|Générique|
 ||Roper Scientific|Winspec32|
 ||PicoQuant|HydraHarp 400|
 |Matisse.py|Spectra Physics (Sirah)|Matisse TS|
@@ -23,4 +24,4 @@
 - [ ] SR400 matlab merge les deux versions
 - [ ] ajout hydraharp
 - [ ] ajout millenia
-- [ ] ajout camera_PrincetonInstruments.m
+- [X] ajout camera_PrincetonInstruments.m
