@@ -36,6 +36,8 @@
 % Creative commons
 \usepackage{cclicenses}
 
+\usepackage{matlab-prettifier}
+
 % Code source
 \usepackage{listings}             % Include the listings-package
 
@@ -295,7 +297,15 @@ Matlab peut contrôler les caméras Princeton Instruments via la librairie pvcam
 
 %\smartdiagram[flow diagram:horizontal,back arrow disabled=false,]{Matlab,  pvcam, Caméra Princeton Instruments}
 
-\begin{lstlisting}[frame=single,caption={Exemple d'utilisation des caméras Princeton Instruments avec Matlab},label={lst:excameraprincetoninstruments},breaklines=true,]  % Start your code-block
+\begin{lstlisting} [
+    frame=single,
+    caption={Exemple d'utilisation des caméras Princeton Instruments avec Matlab},
+    label={lst:excameraprincetoninstruments},
+    breaklines=true,
+    basicstyle=\small,
+    style      = Matlab-editor,
+    basicstyle = \mlttfamily,
+]
 
 % initialise la communication
 camera_PrincetonInstruments('initialise')
@@ -348,7 +358,7 @@ PARAM.t_acc=2  % acquisition de 2 secondes
 data = camera_PrincetonInstruments('image',PARAM);
 
 % Lit des parametres arbitraires (pas definis dans la fonction Camera_PrincetonInstruments.m)
-% Pour la liste et la signification des parametre de PVCAM, se referer a
+% Pour la liste et la signification des parametres de PVCAM, se referer a
 %  http://ftp.piacton.com/Public/Manuals/Princeton\%20Instruments/PVCAM\%202.7\%20Software\%20User\%20Manual.pdf
 % distance 'horizontale' entre les pixels
 Camera_PrincetonInstruments('GET_PARAMETER', 'PARAM_PIX_SER_DIST')
@@ -500,11 +510,27 @@ On peut contrôler les deux Matisses (éventuellement en même temps) avec Pytho
 %Il s'agit d'une classe très ciblée puisqu'en dehors de l'initialisation on ne peut faire qu'une chose: mesurer.
 Voir Code~\ref{lst:exmatisse} pour un exemple d'utilisation.
 
-\begin{lstlisting}[frame=single,caption={Exemple d'utilisation du Matisse avec Python},label={lst:exmatisse},breaklines=true,]  % Start your code-block
+
+\lstset{language=Python, frame=single,  breaklines=true, basicstyle=\small, basicstyle = \mlttfamily,}
+\begin{lstlisting}[%language=Python,
+    %frame=single,
+    caption={Exemple d'utilisation du Matisse avec Python},
+    label={lst:exmatisse},
+    %breaklines=true,
+    %basicstyle=\small, 
+    %basicstyle = \mlttfamily,
+  ]
 
 # importe le module
-import Matisse
+  import Matisse
 
+  class
+
+  for
+
+  if
+
+  % toto
 \end{lstlisting}
 
 %----------------------------------------------------------------------------------------
