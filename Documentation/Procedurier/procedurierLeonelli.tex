@@ -40,6 +40,26 @@
 
 % Code source
 \usepackage{listings}             % Include the listings-package
+\usepackage{color}
+
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+\definecolor{stringcolor}{rgb}{.63,.13,.94} % for strings
+
+\lstset{
+  frame=single,
+  breaklines=true,
+  basicstyle=\footnotesize,
+  backgroundcolor=\color{lightgrey},
+  basicstyle = \mlttfamily
+}
+
+\lstdefinestyle{Python}{
+    language=Python,
+    backgroundcolor=\color{white},
+    commentstyle=\itshape\color{green!40!black},
+    keywordstyle=\color{blue},
+    stringstyle = \color{stringcolor}
+}
 
 % Diagrammes (boites)
 \usepackage{smartdiagram}
@@ -191,7 +211,11 @@ Le module {\it visa}\footnote{\url{https://pyvisa.readthedocs.io/en/stable/}} pe
 Il nécessite que {\it LabView} soit installé sur l'ordinateur (??? confirmer).
 Le Code~\ref{lst:exVisa} montre un exemple minimal de son utilisation.
 
-\begin{lstlisting}[frame=single,caption={Exemple d'utilisation de {\it visa}},label={lst:exVisa},breaklines=true,]  % Start your code-block
+\begin{lstlisting}[
+    caption={Exemple d'utilisation de {\it visa}},
+    label={lst:exVisa},breaklines=true,
+    style=Python,
+  ]  
  
 import visa  # importe le module
 rm = visa.ResourceManager()
@@ -297,13 +321,9 @@ On utilise la fonction \verb!bomem.m! pour convertir les données binaires prise
 Code~\ref{lst:bomem} montre comment utiliser cette fonction.
 
 \begin{lstlisting} [
-    frame=single,
     caption={Lecture des données brutes du Bomem avec Matlab},
     label={lst:bomem},
-    breaklines=true,
-    basicstyle=\small,
     style      = Matlab-editor,
-    basicstyle = \mlttfamily,
 ]
 
 [x,y] = bomem(fichier_sans_extension_spc, unite, calibration)
@@ -401,22 +421,18 @@ Matlab peut contrôler les caméras Princeton Instruments via la librairie pvcam
 %\smartdiagram[flow diagram:horizontal,back arrow disabled=false,]{Matlab,  pvcam, Caméra Princeton Instruments}
 
 \begin{lstlisting} [
-    frame=single,
     caption={Exemple d'utilisation des caméras Princeton Instruments avec Matlab},
     label={lst:excameraprincetoninstruments},
-    breaklines=true,
-    basicstyle=\small,
-    style      = Matlab-editor,
-    basicstyle = \mlttfamily,
+    style=Matlab-editor,
 ]
 
 % initialise la communication
 camera_PrincetonInstruments('initialise')
 
-% temperature cible du detecteur
+% temperature cible du detecteur (C)
 Camera_PrincetonInstruments('TEMP_SETPOINT')  % lit
-Camera_PrincetonInstruments('TEMP_SETPOINT', -71)  % ecrit
-% temperature reele du detecteur
+Camera_PrincetonInstruments('TEMP_SETPOINT', -70)  % ecrit
+% temperature reele du detecteur (C)
 Camera_PrincetonInstruments('TEMP')  % lit
 
 % nom de la camera (tel que vu par Winspec)
@@ -470,7 +486,7 @@ Camera_PrincetonInstruments('GET_PARAMETER', 'PARAM_BIT_DEPTH')
 
 % De maniere similaire que 'GET_PARAMETER', on peut ecrire un parametre avec 'SET_PARAMETER'.
 
-% distance 'horizontale' et 'verticale' entre les pixels (utile pour la calibration pixel -> longueur d'onde)
+% distance 'horizontale' et 'verticale' entre les pixels (utile pour la calibration pixel -> longueur d'onde) (centre a centre, nm)
 [x,y] = Camera_PrincetonInstruments('PIXEL_DIMENSION')
 
 % ferme la communication
@@ -548,7 +564,11 @@ Le contrôle de la caméra par Python fonctionne selon le schéma suivant:
 Il est donc nécessaire que Winspec soit en fonction lors de cette opération.
 Un exemple minimal est donné dans Code~\ref{lst:exwinspec}.
 
-\begin{lstlisting}[frame=single,caption={Exemple d'utilisation de Winspec avec Python},label={lst:exwinspec},breaklines=true,]  % Start your code-block
+\begin{lstlisting}[
+    caption={Exemple d'utilisation de Winspec avec Python},
+    label={lst:exwinspec},
+    style=Python,
+  ]  
 
 ???
 \end{lstlisting}
@@ -613,23 +633,19 @@ On peut contrôler les deux Matisses (éventuellement en même temps) avec Pytho
 %Il s'agit d'une classe très ciblée puisqu'en dehors de l'initialisation on ne peut faire qu'une chose: mesurer.
 Voir Code~\ref{lst:exmatisse} pour un exemple d'utilisation.
 
-
-\lstset{language=Python, frame=single,  breaklines=true, basicstyle=\small, basicstyle = \mlttfamily,}
-\begin{lstlisting}[%language=Python,
-    %frame=single,
+\begin{lstlisting}[
     caption={Exemple d'utilisation du Matisse avec Python},
     label={lst:exmatisse},
-    %breaklines=true,
-    %basicstyle=\small, 
-    %basicstyle = \mlttfamily,
+    style=Python,
   ]
 
 # importe le module
   import Matisse
 
+  ??? tests a ajuster!!! ???
   class
-
-  for
+  xrange
+  for a = 't':
 
   if
 
@@ -679,7 +695,11 @@ La classe RacalDana sert à interagir avec le compteur de photon Racal Dana 1991
 Il s'agit d'une classe très ciblée puisqu'en dehors de l'initialisation on ne peut faire qu'une chose: mesurer.
 Voir Code~\ref{lst:exracaldana} pour un exemple d'utilisation.
 
-\begin{lstlisting}[frame=single,caption={Exemple d'utilisation de {\it RacalDana avec Python}},label={lst:exracaldana},breaklines=true,]  % Start your code-block
+\begin{lstlisting}[
+    caption={Exemple d'utilisation de {\it RacalDana avec Python}},
+    label={lst:exracaldana},
+    style=Python,
+    ]  
  
 import racalDana  # importe le module
 
@@ -752,7 +772,11 @@ Cette fonction est implémentée dans la classe Matisse, dans la fonction (en fa
 
 \subsection{Python}
 
-\begin{lstlisting}[frame=single,caption={Exemple d'utilisation du Wavemeter avec Python},label={lst:exwavemeter},breaklines=true,]  % Start your code-block
+\begin{lstlisting}[
+    caption={Exemple d'utilisation du Wavemeter avec Python},
+    label={lst:exwavemeter},
+    style=Python,
+    ]  
 
 import Matisse
 laser = Matisse.Matisse()
