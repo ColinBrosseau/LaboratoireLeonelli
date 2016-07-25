@@ -180,27 +180,35 @@ Il existe deux branches de Python soient la 2 et la 3. On prend {\bf Python 3}.
 \subsection{Modules}
 
 L'installation de base d'anaconda contient la plupart des modules nécessaires au fonctionnement des scripts utilisés dans le laboratoire.
-On installe des des modules supplémentaires de la facon suivante (??? à compléter):
+On installe des modules supplémentaires de la fa\c{c}on suivante:
 \begin{itemize}
-\item ligne de commande
-\item pip
+\item Démarrer > Anaconda (32-bit) > Anaconda Command Prompt
+ \item Enter la ligne suivante (en adaptant avec le nom du module voulu) dans la console.
 \end{itemize}
 
-Les modules nécessaires pour pouvoir utiliser les scripts concu pour le laboratoire sont énumérés dans la table \ref{tableModulesNecessaires}.
+\begin{lstlisting}[
+    caption={Installation d'un module Python avec {\it pip} (dans la console)},
+%    label={lst:exVisa},
+  ]
+pip install nom_du_module
+\end{lstlisting}
+
+Les modules nécessaires pour pouvoir utiliser les scripts con\c{c}us pour le laboratoire sont énumérés dans la table \ref{tab:ModulesNecessairesPython}.
+Les modules qui n'ont pas de nom pip sont présents de manière native sous Python.
 
 \begin{table}[htbf]
   \caption{Modules nécessaires au fonctionnement des scripts du laboratoire}
-  \label{tableModulesNecessaires}
+  \label{tab:ModulesNecessairesPython}
   \centering
   \resizebox{\textwidth}{!}{%
-    \begin{tabular}{ll}
-      \multicolumn{1}{c}{\textbf{Module}} & \multicolumn{1}{c}{\textbf{Rôle}}                                \\ \hline
-      visa                                & contrôle des instruments (RS232, GPIB)                           \\
-      struct                              & utilisé par SR830c pour lire le flux binaire                     \\
-      yaml                                & lire/écrire des fichiers sous format YAML                        \\
-      collections                         & utilisé pour créer des dictionnaires ordonnés                    \\
-      pandas                              & manipulation simplifiée des structures des données scientifiques \\
-      matplotlib                          & tracer des graphiques                                            \\
+    \begin{tabular}{lll}
+      \multicolumn{1}{c}{\textbf{Module}} & \multicolumn{1}{c}{\textbf{nom sous pip}} & \multicolumn{1}{c}{\textbf{Rôle}}                                \\ \hline
+      visa                & pyvisa               & contrôle des instruments (RS232, GPIB)                           \\
+      struct              &  -              & utilisé par SR830c pour lire le flux binaire                     \\
+      yaml                  & pyyaml             & lire/écrire des fichiers sous format YAML                        \\
+      collections           & -             & utilisé pour créer des dictionnaires ordonnés                    \\
+      pandas                & pandas             & manipulation simplifiée des structures des données scientifiques \\
+      matplotlib            & matplotlib             & tracer des graphiques                                            \\
     \end{tabular}%
     }
 \end{table}
@@ -658,7 +666,7 @@ Voir Code~\ref{lst:exmatisse} pour un exemple d'utilisation.
 
 Le Millenia (figure~\ref{fig:millenia}) sert à pomper le Matisse.
 
-La facon la plus simple d'utiliser ce laser est en mode manuel où les parametres sont ajustés au moyen de la boite de contrôle.
+La fa\c{c}on la plus simple d'utiliser ce laser est en mode manuel où les parametres sont ajustés au moyen de la boite de contrôle.
 On peut également contrôler 
 
 \begin{figure}[htbp]
@@ -672,7 +680,7 @@ On peut également contrôler
 \section{Racal Dana}\index{Racal Dana}
 
 L'appareil Racal Dana 1991 (figure \ref{fig:racaldana}) est utilisé comme compteur de photon.
-Sa configuration manuelle est difficile; c'est pourquoi on préfère le configurer de facon logicielle.
+Sa configuration manuelle est difficile; c'est pourquoi on préfère le configurer de fa\c{c}on logicielle.
 On établi donc la communication avec l'appareil à partir d'un ordinateur et on lui envoie les commandes appropriées.
 
 Pour pouvoir bien fonctionner, le compteur de photon a besoin d'une référence temporelle.
