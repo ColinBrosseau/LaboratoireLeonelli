@@ -216,7 +216,7 @@ Les modules qui n'ont pas de nom pip sont présents de manière native sous Pyth
 \subsubsection{visa}\index{visa}
 
 Le module {\it visa}\footnote{\url{https://pyvisa.readthedocs.io/en/stable/}} permet d'interagir facilement avec les instruments du laboratoire.
-Il nécessite que {\it LabView} soit installé sur l'ordinateur (??? confirmer).
+Il nécessite que {\it LabView} soit installé sur l'ordinateur (??? à confirmer).
 Le Code~\ref{lst:exVisa} montre un exemple minimal de son utilisation.
 
 \begin{lstlisting}[
@@ -251,7 +251,17 @@ print(inst.read("*IDN?"))
 
 \subsubsection{Matplotlib}
 
+??? faire un mini crash course ici
+
+Pour un tutoriel sur l'utilisation de Matplotlib, se référer à l'adresse \url{http://matplotlib.org/users/pyplot_tutorial.html}.
+
 \subsubsection{Pandas}
+
+??? faire un mini crash course ici
+
+\url{http://pandas.pydata.org/pandas-docs/stable/10min.html#min}
+
+\url{http://nbviewer.jupyter.org/github/jvns/pandas-cookbook/blob/v0.1/cookbook/Chapter%201%20-%20Reading%20from%20a%20CSV.ipynb}
 
 
 
@@ -504,7 +514,7 @@ Camera_PrincetonInstruments('fermer')
 
 \subsection{PDA InGaAs}\index{PDA InGaAs}
 
-Ce détecteur est une rangée de 1024 pixels sensibles jusqu'à 2.2 $\mu$m (à température pièce ???).
+Ce détecteur est une rangée de 1024 pixels sensibles jusqu'à 2.2 $\mu$m (à température pièce, la limite à basse température serait d'environ 2.1 $\mu$m).
 
 Ce détecteur a besoin d'azote liquide pour fonctionner et on stabilise la température à -100 $^{\circ}$C.
 Il {\bf doit} être connecté à son contrôleur (allumé) lorsqu'il y a de l'azote dans le réservoir.
@@ -513,9 +523,9 @@ Il est recommandé de pomper le vide d'isolation tous les 6 mois.
 
 Étant donné qu'il est sensible à l'infrarouge, le bruit thermique est particulièrement important sur ce détecteur.
 En général, on mesure 30 000 comptes {\it noirs} par seconde.
-Étant donné que ce détecteur sature à 64 000 comptes, on limite l'accumulation à une seconde.
+Étant donné que ce détecteur sature à ~64 000 comptes, on limite l'accumulation à une seconde.
 
-On utilise la sortie ??? du contrôleur pour l'obturateur mécanique.
+On utilise la sortie $\overline{SCAN}$ du contrôleur pour l'obturateur mécanique.
 
 On peut contrôler ce détecteur avec la fonction Matlab générique \verb!Camera_PrincetonInstruments.m!.
 
@@ -532,7 +542,7 @@ Elle est refroidie par effet Pelletier à -70 $^{\circ}$C.
 
 Cette caméra a un bruit de lecture d'environ 600 comptes et un bruit noir suffisamment bas pour être négligeable dans la plupart des cas.
 
-On utilise la sortie ??? du détecteur pour l'obturateur mécanique.
+On utilise la sortie LOGIC OUT du détecteur pour l'obturateur mécanique.
 
 Tout comme la PDA InGaAS, on peut contrôler ce détecteur avec la fonction Matlab générique \verb!Camera_PrincetonInstruments.m!.
 
