@@ -8,16 +8,17 @@ Created on Wed Sep  9 15:04:23 2015
 """
 
 """ 
-    Control Winspec (Princeton Intruments software to interface to its cameras) thru
-    Windows COM interface (https://en.wikipedia.org/wiki/Component_Object_Model)
-    Schematics:
-	Python -> COM interface -> Winspec -> Princeton Instruments Camera
+    Acquire a spectrum using Winspec through the COM interface.
+    This script actually gets the data from Winspec and then
+    plots it within python.
     
-    !!! Right now, one must manually set to long in Data File > Data Type
+    !!! Right now, one must manually set (in Winspec):
+        long in Data File > Data Type
+        ROI (on can set it from this function, but need to be confirmed in Winspec)
 """
 
 """
-    Here are some details explaining how I (Colin-N. Brosseau) built this file.
+    Here are some details explaining how I (Colin-N Brosseau) built this file.
     
     We begin by using makepy.py from win32com package.
     From command line:
@@ -119,7 +120,7 @@ class winspec:
         """
         Do a measurement.
         
-        filenename
+        filename
             
         """
         self.stop()
@@ -412,13 +413,13 @@ class winspec:
         if newRoi is None:
             roiClass = self.WinspecExpt.GetROI(index)  
             roiList = roiClass.Get()
-            return roiList
+            return [int(i) for i in [roiList[1], roiList[3], roiList[4], roiList[0], roiList[2], roiList[5]]]
         else:
             self.clearROI()  # have to clear all ROIs because it create a new one. have not found how to just replace one
             self.useROI(True)  # clear automaticaly put in full chip. So we need to but it back to ROI
             roiClass = self.WinspecROI
             roiClass.Set(newRoi[3], newRoi[0], newRoi[4], newRoi[1], newRoi[2], newRoi[5])
-            self.WinspecExpt.SetROI( roiClass)  
+            self.WinspecExpt.SetROI(roiClass)  
             
     def clearROI(self):
         self.WinspecExpt.ClearROIs()

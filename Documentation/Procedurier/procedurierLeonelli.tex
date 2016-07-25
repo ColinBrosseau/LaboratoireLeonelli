@@ -48,7 +48,7 @@
 \lstset{
   frame=single,
   breaklines=true,
-  basicstyle=\footnotesize,
+  basicstyle=\small,
   backgroundcolor=\color{lightgrey},
   basicstyle = \mlttfamily
 }
@@ -565,7 +565,7 @@ Elle {\bf doit} être connectée à son contrôleur (allumé) lorsqu'il y a de l
 
 Il est recommandé de pomper le vide d'isolation tous les 6 mois.
 
-Ce détecteur a besoin de Winspec\footnote{ou Winview ???} pour pouvoir être contrôlée.
+Ce détecteur a besoin de Winspec32 pour pouvoir être contrôlée.
 En plus de l'acquisition manuelle par Winspec, il est possible de le faire avec Python.
 Cette dernière option permet d'automatiser l'acquisition.
 
@@ -588,7 +588,60 @@ Un exemple minimal est donné dans Code~\ref{lst:exwinspec}.
     style=Python,
   ]  
 
-???
+import WinspecCOM
+camera = WinspecCOM.winspec()
+
+camera.initialConfiguration()  # set most common values in cosmic ray and temperature
+
+camera.setTemperature(-100)  # set the target temperature to -100 C
+camera.setTemperature()[0]  # read the target temperature
+camera.actualTemperature()[0]  # read the actual temperature
+
+# ROI (xmin, xmax, xgroup, ymin, ymax, ygroup)
+camera.ROI(1, [1, 1340, 1, 1, 400, 400])  # set (for come reason, one have to manually confirm that in Winspec)
+camera.ROI()  # read
+
+# exposure unit 'ms', 's', 'min', 'h'
+camera.exposureUnit('s')  # set
+camera.exposureUnit()[0]  # read
+
+# exposure time 
+camera.exposure(1.5)  # set
+camera.exposure()[0]  # read
+
+# number of accumulations
+camera.nAccumulations(2)  # set
+camera.nAccumulations()[0]  # read
+
+# ADC speed '100 kHz', '1 MHz'
+camera.adcSpeed('100 kHz')
+camera.adcSpeed()[0]
+
+# background removal True, False
+camera.removeBackground(True)  # set
+camera.removeBackground()[0]  # read
+
+# cosmic ray mode 'off', 'temporal', 'spatial'
+camera.cosmicMode('spatial')  # set
+camera.cosmicMode()[0]  # read
+
+# cosmic ray sensitivity
+camera.cosmicSensitivity(50)  # set
+camera.cosmicSensitivity()[0]  # read
+
+camera.acquireBackground()  # measure the background
+
+# measurements
+x, y, filename = camera.measureSimple()  # default values: accumulation for 1 second, one image and one accumulation
+x, y, filename = camera.measureSimple(exposureTime=2)  # accumulation for 2 second2, default values: one image and one accumulation
+# x and y contains position/intensity values
+# filename is name of the saved file (.SPE format)
+
+camera.getParamAll('test.txt')  # save current values in a file (nice for development)
+
+camera.stop()  # stop current measurement
+
+camera.isRunning()[0]  # check if camera is currently measuring
 \end{lstlisting}
 
 %----------------------------------------------------------------------------------------
