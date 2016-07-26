@@ -785,11 +785,59 @@ comptes = compteur.measure(exposureTime=5)
 
 \section{SP275}\index{SP275}
 
+Le spectromètre Acton Research SP275\footnote{Manuel: \url{http://ftp.piacton.com/Public/Manuals/Acton/SP-275_Obsolete.pdf}} (Figure \ref{fig:sp275}) est un spectromètre simple doté d'une tourelle de 3 réseaux (Table~\ref{table:reseauxSP275}).
+Ce spectromètre fonctionne bien dans l'UV.
+
+\begin{table}[htbp]
+  \caption{Réseaux du spectromètre Acton Research SP275}
+  \label{table:reseauxSP275}
+  \centering
+%  \resizebox{\textwidth}{!}{%  
+    \begin{tabular}{ccc}
+    Réseau & Densité    & Blaze \\ \hline
+    ~      & (l/mm)     & (nm)  \\
+    1      & 2400       & Hol     \\
+    2      & 1200       & 300     \\
+    3      & 1200       & Hol     \\
+    \end{tabular}
+%  }
+\end{table}
+
+Pour contrôler ce spectromètre avec un ordinateur, on connecte celui-ci avec le contrôleur du spectromètre (SpectraDrive) par GPIB.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=.5\linewidth]{sp275}
+\caption{Acton Research SP275}
+\label{fig:sp275}
+\end{figure}
+
 \subsection{Matlab}
 
-\begin{lstlisting}[frame=single,caption={Exemple d'utilisation du SP275 avec Matlab},label={lst:exsp275},breaklines=true,]  % Start your code-block
+La fonction SP275.m permet de contrôler le spectromètre avec Matlab.
+Code~\ref{lst:exsp275} donne un exemple d'utilisation simple.
 
-???
+\begin{lstlisting} [
+    caption={Exemple d'utilisation du SP275 avec Matlab},
+    label={lst:exsp275},
+    style=Matlab-editor,
+]
+
+??? Code entré sans test. Vérifier que c'est valide ???
+  
+SP275('initialise')  % initialise la communication
+
+% Reseaux
+SP275('?GRATINGS')  % liste des reseaux disponibles
+SP275('?GRATING')  % lit le reseau actuel
+SP275('GRATING', 3)  % selectionne un reseau en particulier
+
+% decalage
+SP275('OFFSET', 1)  %  defini le offset a 1 nm
+
+% position
+SP275('?NM')  % lit la longueur d'onde actuelle
+SP275('GOTO', 532.1)  % deplace vers 532.1 nm
+  
 \end{lstlisting}
 
 \subsubsection{Détecteurs}
