@@ -310,10 +310,25 @@ La table~\ref{table:configurationBomemDetecteur} indique les paramètres recomma
       Detector        & 9999 - 25000 & 2000 - 8000  & 3000 - 14000 & 5000 - 12000 & 5000 - 13000 \\
       Time Delay (us) & 1.6          & 4            & 4            & 0.1          & 160          \\
       Speed (cm/s)    & 0.5          & 0.15         & 0.05         & 0.1          & 0.5          \\
+%      Gain (Base)     & 64           &              &              &              &              \\
+%      Gain (Pos)\footnote{Si on a des oscillations dans la mesure, mettre se paramètre à None permet de les enlever.}
+%                      & None         &              &              &              &              \\
+%      Gain (Fringe \#) & 200          &              &              &              &              \\
     \end{tabular}
   }
 \end{table}
 
+\subsubsection{Gain du détecteur}
+
+Il est possible d'appliquer deux gains sur le signal du détecteur.
+Ces paremètres sont ajustés juste avant la mesure, lorsqu'on clique sur {\it Raw Spectrum}.
+Entre la frange 1 et {\it Fringe \#} le signal du détecteur est amplifié d'un facteur {\it Gain Base}.
+Le signal suivant les franges {\it Fringe \#} sont amplifiées d'un facteur {\it Gain Pos}.
+
+(??? à confirmer auprès de Richard) Seul le détecteur silicium prend en compte le {\it Gain Pos}.
+
+Si de fortes oscillations se produisent dans l'interférogramme (??? confirmer avec Guillaume) il faut mettre {\it Gain Pos} à {\it None}. 
+ 
 \subsection{Logiciel du Bomem}
 
 Dans le logiciel du Bomem, le bouton \fbox{\%ADC} permet d'avoir une idée de l'intensité du signal.
