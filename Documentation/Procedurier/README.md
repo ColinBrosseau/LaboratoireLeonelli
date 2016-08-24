@@ -1,7 +1,14 @@
-Fichiers source (LaTeX) pour produire le procédurier du laboratoire.
+Fichiers source (LaTeX) pour produire le procédurier du laboratoire
 
 # Génération du fichier PDF
 
+## Initialisation du style
+
+Nécessaire une seule fois
+
+-   makeindex procedurierLeonelli.idx -s StyleInd.ist
+
+## Génération du PDF
 Pour générer un fichier PDF à partir des fichiers sources
 
 Manière classique:
@@ -15,8 +22,14 @@ En utilisant make:
 
 |Fichier|Fonction|
 |:---------|:----------|
+|Image (répertoire)| Contient les images contenues dans le procédurier|
+|LICENCE| Licence du document|
+|matlab-prettifier.sty| Mise en forme des codes Matlab|
+|Makefile| Fichier pour la compilation automatique (make)|
 |procedurierLeonelli.tex| Texte du document|
+|README.md| (Ce fichier) Instructions de base|
 |structure.tex| Mise en page du document|
+|StyleInd.ist| Fichier de style|
 
 ## Todo
 - Bomem
@@ -26,4 +39,7 @@ En utilisant make:
     - [X] réseau (attention de débrancher après)
   - [X] procédure de démarage
   - [X] interprétation de % (saturé = 0%)
-  - [ ] débloquer manuellement le diasphragme
+  - [ ] débloquer manuellement le diaphragme
+- Feuille de temps
+  - [ ] Modèle de feuille d'utilisation du laboratoire (se baser sur le modèle de Ghaouti)
+  
