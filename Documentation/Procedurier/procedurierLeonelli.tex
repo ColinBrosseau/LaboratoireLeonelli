@@ -44,6 +44,9 @@
 
 \usepackage{hyperref}  % pour mettre des liens cliquables (à implémenter ???)
 
+% Insérer des fichiers pdf 
+\usepackage{pdfpages}
+
 \definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
 \definecolor{stringcolor}{rgb}{.63,.13,.94} % for strings
 
@@ -665,14 +668,15 @@ camera.isRunning()[0]  # check if camera is currently measuring
 
 \section{HydraHarp}\index{HydraHarp}
 
-??? compléter avec http://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/hydraharp-400-multichannel-picosecond-event-timer-tcspc-module
-??? lien vers le logiciel
-
-Le Hydra Harp (figure~ref{fig:hydraharp}) est utilisé pour les mesures de comptage de photons corrélés.
+Le Hydra Harp (figure~\ref{fig:hydraharp}) est utilisé pour les mesures de comptage de photons corrélés.
 
 Notre module comporte deux canaux d'entré en plus de la synchronisation.
+Il est important de ne pas dépasser 1.5 Volt en entrée sur les canaux.
 
-Il est important de ne pas dépasser 1.5 Volt en entrée sur les entrées.
+Les spécification et le logiciel de contrôle sont disponibles à l'adresse suivante: \url{http://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/hydraharp-400-multichannel-picosecond-event-timer-tcspc-module}.
+
+La boite de contrôle a une résolution temporelle de 1 ps.
+Cependant, la réponse instrumentale des détecteurs (SPAD) limite la résolution effective à environ 200 ps.
 
 \begin{figure}[htbp]
   \centering\includegraphics[width=.5\linewidth]{hydraharp}
@@ -690,9 +694,7 @@ Il est important de ne pas dépasser 1.5 Volt en entrée sur les entrées.
 \subsection{Détecteur} 
 
 Les détecteurs\footnote{Fiche technique \url{https://www.picoquant.com/images/uploads/downloads/pdm_series.pdf}} (2) que nous possédons, sont des SPAD de marque MPD (micro photon devices) dans la série PDM.
-Ils ont les caractéristiques suivantes: 50 $\mu$m, cooled, timing, Grade C.
-
-Les détecteurs doivent être alimentés pour fonctionner.
+Ils ont les caractéristiques suivantes: 50 $\mu$m, cooled, timing, Grade C. Ils doivent être alimentés pour fonctionner.
 
 Il y a trois sorties sur les détecteurs: {\it TTL Out, Timing Out, Gate In}.
 Pour les mesures en comptage de photon, nous utilisons la sortie {\it Timing Out}
@@ -701,12 +703,13 @@ Leur sensibilité en fonction de la longueur d'onde est illustrée à la figure~
 
 \subsection{Logiciel du constructeur}
 
+??? à compléter \\
 FluoFit
 
 \subsection{Matlab}
 
 Le code Matlab présenté ici permet de mesurer en mode comptage de photon corrélé.
-Dans l'état actuel, il ne permet pas d'accéder aux modes avancés (T2 et T3).
+Dans l'état actuel, il ne permet pas d'accéder aux modes avancés (TTTR (enregistrement individuel temporel de tous les événements sur tous les canaux: T2 et T3).
 
 \begin{lstlisting} [
     caption={Exemple d'utilisation de HydraHarp avec Matlab},
@@ -750,23 +753,64 @@ Dans l'état actuel, il ne permet pas d'accéder aux modes avancés (T2 et T3).
 
 \section{Matisse}\index{Matisse}
 
-Le Matisse (figure~\ref{fig:matisse}) donne un laser de longueur d'onde ajustable dans une plage d'environ 100 nm.
+Le Matisse (figure~\ref{fig:matisse}) est un laser de longueur d'onde ajustable dans une plage d'environ 300 nm (Ti:Sa) et 100 nm (Colorant).
 La puissance de sortie est de l'ordre de 2 watts.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{lcc}
+                    & Ti:Sa       & Colorant \\
+    \hline
+    Spatial Mode    &	\multicolumn{2}{c}{TEM$_{00}$} \\
+    Beam Radius     &  \multicolumn{2}{c}{0.7 mm (typical)}  \\
+    Beam Divergence & 	\multicolumn{2}{c}{< 1 mrad (half angle)} \\
+    Linewidth       & 	< 10 MHz rms (without stabilisation) & < 20 MHz rms (without stabilisation)\\
+    & 	$\approx$ 30 kHz rms (with TS stabilisation) & 	< 50 kHz rms (with TS stabilisation) \\
+    Amplitude Noise &  	\multicolumn{2}{c}{< 0.25\% rms (TS)}\\
+    Beam Polarization & 	\multicolumn{2}{c}{horizontal} \\
+  \end{tabular}
+  \label{tab:matisseGeneralCharacteristics}
+\end{table}
+
+
+Chaque ensemble de mirroir permet de couvrir une plage d'environ 100 nm (voir tableau~\ref{tab:setMiroirsMatisse}).
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{lll}
+    Ensemble & Plage utile (nm) & Milieur de gain\\
+    \hline
+    MOS-1    & 700 - 780        & Ti:Sa\\
+    MOS-2    & 750 - 870        & Ti:Sa\\
+    MOS-3    & 860 - 1015       & Ti:Sa\\
+    MOS-4    & 550 - 660        & Colorant\\
+  \end{tabular}
+  \label{tab:setMiroirsMatisse}
+\end{table}
+
+\includepdf[pages=-,]{Matisse_alignement_procedure_reverse.pdf}
+
+Plusieurs documents d'entretien du Matisse non disponibles sur l'Internet sont regroupés dans le chapitre~\ref{chap:documents}.
 
 On peut contrôler le Matisse avec le logiciel du constructeur où avec Python.
 Les deux manières étant mutuellement exclusives\footnote{Les deux peuvent sembler fonctionner ensemble pendant un long moment, mais on aura d'éventuelles erreurs dans le code Python.}.
 
 \begin{figure}[htbp]
   \centering\includegraphics[width=.5\linewidth]{matisse}
-  \caption{Matisse et cellule de référence}
+  \centering\includegraphics[width=.5\linewidth]{matisseOpticSets}
+  \centering\includegraphics[width=.5\linewidth]{matisseSchemas}
+  \caption{Matisse et sa cellule de référence, Plage d'utilisation des ensembles de mirroirs (Ti:Sa), Schémas optique de la cavité}
   \label{fig:matisse}
 \end{figure}
 
+
 \subsection{Logiciel du contructeur}
 
-Étant donné des choix de conception de Sirah, chaque Matisse doit être contrôlé avec son propre logiciel.
+Étant donné des choix de conception de Sirah, chaque Matisse doit être contrôlé avec son propre logiciel\footnote{\url{Téléchargement: http://www.sirah.com/laser/cw-ring-lasers/matisse-commander-software}}.
 On ne peut pas interchanger les deux lasers parce que le logiciel stoque la configuration de son laser attitré.
 Pour une raison apparentée, on ne peut pas contrôler les deux lasers avec le même ordinateur\footnote{Le code Python permet de contrôler les deux lasers en même temps.}.
+
+La version du logiciel utilisé doit correspondre à celle du microgiciel dans le contrôleur du laser.
 
 \subsection{Python}
 
@@ -793,6 +837,11 @@ Voir Code~\ref{lst:exmatisse} pour un exemple d'utilisation.
 
   % toto
 \end{lstlisting}
+
+\subsection{Wavemeter}
+
+Les Matisse sont équipés de {\it wavemeter} permettant de lire la longueur d'onde de sortie.
+La section~\ref{wavemeter} explique comment lire la longueur d'onde à partir de Python.
 
 %----------------------------------------------------------------------------------------
 
@@ -1009,7 +1058,7 @@ Code~\ref{lst:extrivista} donne un exemple d'utilisation simple.
 
 %----------------------------------------------------------------------------------------
 
-\section{Wavemeter}\index{Wavemeter}
+\section{Wavemeter}\index{Wavemeter}\label{wavemeter}
 
 Le Wavemeter sert à donner une mesure précise de la longueur d'onde du laser sortant du Matisse.
 
@@ -1017,7 +1066,7 @@ Le Wavemeter sert à donner une mesure précise de la longueur d'onde du laser s
 Il est possible de lire la longueur d'onde mesurée par l'instrument en utilisant deux faux ports série.
 Sur windows, il faut installer le logiciel {\it com0com}\footnote{\url{http://com0com.sourceforge.net}}.
 On crée ensuite deux ports séries (com 90 et com 91) reliés ensemble.
-Le logiciel du Wavemeter écrit ses résultats sur com 90 (???).
+Le logiciel du Wavemeter (qui doit être démarré et en mode acquisition) écrit ses résultats sur com 90 (???).
 Ce dernier recopie tout sur com 91.
 Il suffit de lire les résultats sur com 91.
 Un exemple de code est donné dans Code~\ref{lst:exwavemeter}.
@@ -1078,9 +1127,17 @@ print(laser.realWavelength)
 %\part{Deuxième partie}
  
 \chapter{Documents}
+\label{chap:documents}
 
 \include{feuilleUtilisateurs}
 
+%\section{Matisse}
+\includepdf[pages=-]{Documents/MSN_1-PiezoEtalonModulationCheck.pdf}
+\includepdf[pages=-]{Documents/MSN-3-Opening-S-Refcell.pdf}
+\includepdf[pages=-]{Documents/MSN-4_CheckingRefCellDither.pdf}
+\includepdf[pages=-]{Documents/MSN-6_CheckingSlowPiezo.pdf}
+\includepdf[pages=-]{Documents/MSN-7_CheckingSlowPiezoAmpCard.pdf}
+\includepdf[pages=-]{Documents/piezo_etalon_driver_card_check.pdf}
 %----------------------------------------------------------------------------------------
 %	INDEX
 %----------------------------------------------------------------------------------------
