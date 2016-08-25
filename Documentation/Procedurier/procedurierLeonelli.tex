@@ -663,6 +663,15 @@ camera.isRunning()[0]  # check if camera is currently measuring
 
 \section{HydraHarp}\index{HydraHarp}
 
+??? compléter avec http://www.picoquant.com/products/category/tcspc-and-time-tagging-modules/hydraharp-400-multichannel-picosecond-event-timer-tcspc-module
+??? lien vers le logiciel
+
+Le Hydra Harp (figure~ref{fig:hydraharp}) est utilisé pour les mesures de comptage de photons corrélés.
+
+Notre module comporte deux canaux d'entré en plus de la synchronisation.
+
+Il est important de ne pas dépasser 1.5 Volt en entrée sur les entrées.
+
 \begin{figure}[htbp]
   \centering\includegraphics[width=.5\linewidth]{hydraharp}
   \centering\includegraphics[width=.5\linewidth]{spad}
@@ -670,13 +679,58 @@ camera.isRunning()[0]  # check if camera is currently measuring
   \label{fig:hydraharp}
 \end{figure}
 
+\begin{figure}[htbp]
+  \centering\includegraphics[width=.5\linewidth]{sensibiliteSPAD}
+  \caption{Sensibilité spectrale des détecteurs SPAD}
+  \label{fig:spadSensibiliteSpectrale}
+\end{figure}
+
+\subsection{Détecteur} 
+
+Les détecteurs\footnote{Fiche technique \url{https://www.picoquant.com/images/uploads/downloads/pdm_series.pdf}} (2) que nous possédons, sont des SPAD de marque MPD (micro photon devices) dans la série PDM.
+Ils ont les caractéristiques suivantes: 50 $\mu$m, cooled, timing, Grade C.
+
+Les détecteurs doivent être alimentés pour fonctionner.
+
+Il y a trois sorties sur les détecteurs: {\it TTL Out, Timing Out, Gate In}.
+Pour les mesures en comptage de photon, nous utilisons la sortie {\it Timing Out}
+
+Leur sensibilité en fonction de la longueur d'onde est illustrée à la figure~\ref{fig:spadSensibiliteSpectrale}.
+
 \subsection{Logiciel du constructeur}
+
+FluoFit
 
 \subsection{Matlab}
 
-\begin{lstlisting}[frame=single,caption={Exemple d'utilisation de HydraHarp avec Matlab},label={lst:exhydraharp},breaklines=true,]  % Start your code-block
+Le code Matlab présenté ici permet de mesurer en mode comptage de photon corrélé.
+Dans l'état actuel, il ne permet pas d'accéder aux modes avancés (T2 et T3).
 
-???
+\begin{lstlisting} [
+    caption={Exemple d'utilisation de HydraHarp avec Matlab},
+    label={lst:exhydraharp},
+    style=Matlab-editor,
+  ]
+  
+  % Initialise la communication et met le detecteur dans un mode predefini
+  hydra('initialise')
+  % Mesure avec les parametres suivants:
+  %   Cree un fichier .dat (ascii) en plus du fichier .mat
+  %   sync offset = 3 ps
+  %   sync zero = 9 mV
+  %   resolution = 8 ps
+  %   input channel 1 trig level = 599 mV
+  %   temps acquisition = 1 seconde (defaut)
+  %   fichier de sortie = YYYYMMDDThhmmss.mat suivant la date et l'heure du debut de la mesure (defaut)
+  %            par exemple 20160824T154223.mat pour une mesure faite le 24 aout 2016 a 15h42 et 23 secondes.
+  [x,y] = hydra('measure', 'DAT', 'so', 3, 'sz',9, 'r',8 ,'il',1,599);
+  % ferme la communication
+  hydra('stop' )
+  % taux de comptage des entrees
+  [countRateSync, countRateInputs] = hydra('TAUX' )
+  % place le detecteur dans un mode prefefini
+  hydra('BASECONFIG')
+
 \end{lstlisting}
 
 %----------------------------------------------------------------------------------------
@@ -1013,7 +1067,6 @@ print(laser.realWavelength)
 
 %----------------------------------------------------------------------------------------
 \section{Raman}\index{Raman}
-
 
 
 %----------------------------------------------------------------------------------------
