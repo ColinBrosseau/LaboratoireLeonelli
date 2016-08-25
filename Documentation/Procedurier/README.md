@@ -41,5 +41,9 @@ En utilisant make:
   - [X] interprétation de % (saturé = 0%)
   - [ ] débloquer manuellement le diaphragme
 - Feuille de temps
-  - [ ] Modèle de feuille d'utilisation du laboratoire (se baser sur le modèle de Ghaouti)
-  
+  - [X] Modèle de feuille d'utilisation du laboratoire (se baser sur le modèle de Ghaouti)
+- HydraHarp
+  - [ ] lien vers les spécifications techniques
+  - [ ] lien vers le logiciel
+  - [ ] utilisation avec Matlab: explication de la bibliothèque nécessaire
+  - [ ] utilisation du logiciel propriétaire
