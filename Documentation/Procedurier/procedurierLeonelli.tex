@@ -1119,6 +1119,43 @@ print(laser.realWavelength)
 %----------------------------------------------------------------------------------------
 \section{Raman}\index{Raman}
 
+\subsection{U1000}
+
+\begin{lstlisting}[
+    caption={Mesure Raman avec le U1000 et sa CCD},
+    label={lst:ramanU1000},
+    style=Python,
+  ]  
+import test_mesure as mesure
+
+# lire visuellement la longueur d'onde sur le compteur du spectrometre
+# ex.: 5399
+m = mesure.Mesure(5399)
+# m represente l;instrument de mesure
+
+#entrer la longueur d'onde du laser
+m.setLaser(5321)
+
+#entrer le decalage du spectrometre entre affichage et realite
+m.spectrometer.positionOffset = 0
+# faire une mesure sur un pic de longueur d'onde connue (voir par exemple plus bas pour la raie du Hg
+positionVraie = 5460.735
+positionMesure = 5458.97
+m.spectrometer.positionOffset = positionVraie - positionMesure
+
+#pour faire une mesure entre 150 et 550 cm-1
+#acquisition de 10 secondes par position
+#5 repetitions par position (a partir de 5, un algorithme enleve efficacement les pics du aux "rayons cosmiques"
+#chaque position est mesuree a 4 endroits differents sur la CCD (pour enlever le flatfield)
+#mesure en cm-1 relatif
+
+x,y = m.measureRange([150, 550], accTime=10, images=5, nOverlap=4, unit='cm-1')
+
+# pour mesurer la raie du Hg
+# mesure en Angstroem
+x,y = m.measureRange(5461, accTime=1, images=10, nOverlap=5, unit='A')
+\end{lstlisting}
+
 
 %----------------------------------------------------------------------------------------
 %	PART

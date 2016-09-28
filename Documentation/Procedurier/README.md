@@ -43,7 +43,9 @@ En utilisant make:
 - Feuille de temps
   - [X] Modèle de feuille d'utilisation du laboratoire (se baser sur le modèle de Ghaouti)
 - HydraHarp
-  - [ ] lien vers les spécifications techniques
-  - [ ] lien vers le logiciel
+  - [X] lien vers les spécifications techniques
+  - [X] lien vers le logiciel
   - [ ] utilisation avec Matlab: explication de la bibliothèque nécessaire
   - [ ] utilisation du logiciel propriétaire
+- Modulateurs Acousto-optiques
+  - [ ] Ajout documents scannées
