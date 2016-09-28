@@ -182,6 +182,21 @@ En général, il s'agit des instruments situés dans le D405 (Labo Raman).
 À l'heure actuelle, la manière la plus simple d'installer python sur windows est d'utiliser la {\bf distribution anaconda} https://www.continuum.io/downloads.
 Il existe deux branches de Python soient la 2 et la 3. On prend {\bf Python 3}.
 
+\subsection{Installation sous Windows XP}
+
+	Pour installer Anaconda, il faut normalement se rendre a l'adresse suivante
+	https://www.continuum.io/downloads
+	et suivre les instructions.
+
+	Cependant, si on installe Anaconda sur Windows XP, il faut utiliser une version plus anciene de Anaconda. 
+	Sinon, ca ne fonctionnera pas (les nouvelles versions de Anaconda utilisent Python 3.5 (ou plus) qui ne sont pas compatibles avec Windows XP.)
+	Source: \url{https://docs.continuum.io/anaconda/#older-versions-of-anaconda}
+
+	Sur Windows XP, il faut donc telecharger
+	\url{https://repo.continuum.io/archive/Anaconda3-2.2.0-Windows-x86.exe}
+
+	Installer le programme. 	
+
 \subsection{Modules}
 
 L'installation de base d'anaconda contient la plupart des modules nécessaires au fonctionnement des scripts utilisés dans le laboratoire.
@@ -214,9 +229,27 @@ Les modules qui n'ont pas de nom pip sont présents de manière native sous Pyth
       collections           & -             & utilisé pour créer des dictionnaires ordonnés                    \\
       pandas                & pandas             & manipulation simplifiée des structures des données scientifiques \\
       matplotlib            & matplotlib             & tracer des graphiques                                            \\
+      lmfit              & lmfit &  ajustement non linéaire (moindre carrées)\\
+      
     \end{tabular}%
     }
 \end{table}
+
+\begin{lstlisting}[
+    caption={Installation des packets supplémentaires (console)},
+%    label={lst:exVisa},
+  ]
+conda install pyserial
+conda install comtypes
+pip install pyvisa
+pip install lmfit
+pip install pyyaml
+pip install pandas
+pip install matplotlib
+# collections ???
+# struct ???
+\end{lstlisting}
+
 
 \subsubsection{visa}\index{visa}
 
@@ -269,7 +302,32 @@ Pour un tutoriel sur l'utilisation de Matplotlib, se référer à l'adresse \url
 \url{http://nbviewer.jupyter.org/github/jvns/pandas-cookbook/blob/v0.1/cookbook/Chapter%201%20-%20Reading%20from%20a%20CSV.ipynb}
 
 
+\subsubsection{Interface pour Winspec}
 
+L'interface Python pour Winspec doit être construite pour pouvoir accéder à Winspec par Python.
+Cette précédure est à faire une seule fois et consiste en deux étapes successives
+
+\begin{lstlisting}[
+    caption={Creer l'interface pour Winspec (console)},
+%    label={lst:exVisa},
+  ]
+ipython makepy.py 
+\end{lstlisting}
+                
+
+\begin{lstlisting}[
+    caption={Création de l'interface Python pour Winspec},
+    label={lst:createWinspecPython},breaklines=true,
+    style=Python,
+  ]
+  
+import comtypes.client as cc
+# This line has to be before import comtypes.gen.WINX32Lib as WinSpecLib (at least on the first run.)
+# It creates the file C:\Program Files\Anaconda3\lib\site-packages\comtypes\gen\_1A762221_D8BA_11CF_AFC2_508201C10000_0_3_11.py
+# It allows to import comtypes.gen.WINX32Lib
+cc.GetModule( ('{1A762221-D8BA-11CF-AFC2-508201C10000}', 3, 11))  # comes from regedit (look for IWinx32App2), major version, minor version
+\end{lstlisting}
+                
 %----------------------------------------------------------------------------------------
 %	CHAPTER 2
 %----------------------------------------------------------------------------------------
