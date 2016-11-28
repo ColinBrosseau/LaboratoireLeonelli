@@ -42,7 +42,19 @@
 \usepackage{listings}             % Include the listings-package
 \usepackage{color}
 
-\usepackage{hyperref}  % pour mettre des liens cliquables (à implémenter ???)
+%\usepackage{natbib}      % bibliographie
+%\usepackage{biblatex}      % bibliographie
+
+
+\usepackage[pdftex,
+            pdfauthor={Colin-N. Brosseau},
+            pdftitle={Procédurier Laboratoire Richard Leonelli},
+            pdfsubject={},
+            pdfkeywords={Physique, Spectroscopie, Optique},
+            pdfproducer={},
+            pdfcreator={}]{hyperref}
+
+%\usepackage{hyperref}  % pour mettre des liens cliquables (à implémenter ???)
 
 % Insérer des fichiers pdf 
 \usepackage{pdfpages}
@@ -68,6 +80,8 @@
 
 % Diagrammes (boites)
 \usepackage{smartdiagram}
+
+
 
 %----------------------------------------------------------------------------------------
 
@@ -111,7 +125,7 @@
 
 %\noindent \textsc{Published by Publisher}\\ % Publisher
 
-\noindent \textsc{https://github.com/ColinBrosseau/LaboratoireLeonelli}\\ % URL
+\noindent \textsc{\url{https://github.com/ColinBrosseau/LaboratoireLeonelli}}\\ % URL
 
 \noindent \cc \ccnc \bysa
 
@@ -759,6 +773,13 @@ Pour les mesures en comptage de photon, nous utilisons la sortie {\it Timing Out
 
 Leur sensibilité en fonction de la longueur d'onde est illustrée à la figure~\ref{fig:spadSensibiliteSpectrale}.
 
+\subsubsection{After-pulses}
+Ces détecteurs ont environ 3\% d'after-pulses (Pascal Grégoire a mesuré 2.5\%).
+Il s'agit de pulses présents environ 100 ns après le maximum.
+
+%\cite{spad_afterpulsing}
+Il est possible\footnote{\url{http://www.tandfonline.com/doi/abs/10.1080/09500340.2012.698659}} de réduire considérablement la présence d'after-pulses en utilisant l'entrée {\it gate in} du SPAD.
+
 \subsection{Logiciel du constructeur}
 
 ??? à compléter \\
@@ -768,6 +789,12 @@ FluoFit
 
 Le code Matlab présenté ici permet de mesurer en mode comptage de photon corrélé.
 Dans l'état actuel, il ne permet pas d'accéder aux modes avancés (TTTR (enregistrement individuel temporel de tous les événements sur tous les canaux: T2 et T3).
+
+
+??? \\
+Modifier le code ci-bas pour réfléter la nouvelle version.
+'so' et 'sl' sont maintenant joints dans 'slevels'
+??? \\
 
 \begin{lstlisting} [
     caption={Exemple d'utilisation de HydraHarp avec Matlab},
@@ -1175,44 +1202,145 @@ print(laser.realWavelength)
 \section{Photoluminescence résolue temporellement}\index{Photoluminescence résolue temporellement}
 
 %----------------------------------------------------------------------------------------
+\newpage
 \section{Raman}\index{Raman}
 
 \subsection{U1000}
+
+Pour faire une mesure de diffusion Raman sur le systeme U1000, il faut:
+\begin{itemize}
+\item Remplir le réservoir d'azote du détecteur CCD
+\item Winspec
+	\begin{itemize}
+	\item Démarrer le programme \it{Winspec}
+	\item Au besoin, vérifier que la caméra est détectée: \it{Setup > Hardware ...}
+	\item Vérifier la température du détecteur: \it{Setup > Detector Temperature...} > Target Temperature: -100 C, Current Temperature: Locked
+	\end{itemize}
+\item Déterminer visuellement la position du spectrometre U1000 (compteur sur le côté)
+\item Interface Python
+	\begin{itemize}
+	\item Démarrer le programme \it{Spyder}
+	\end{itemize}
+\end{itemize}
+
+Les mesures se font en utilisant la Console dans Spyder.
+Note importante: toutes les unités sont en Angtroms ou en cm-1 (relatifs).
 
 \begin{lstlisting}[
     caption={Mesure Raman avec le U1000 et sa CCD},
     label={lst:ramanU1000},
     style=Python,
   ]  
+# ------- Repertoire de travail ------- 
+#
+cd 'C:\\Documents and Settings\\Admin\\Sync\\Python'
+
+# ------- Importation du module necessaire ------- 
+#
 import test_mesure as mesure
 
+
+# ------- Initialisation ------- 
+#
+# Initialisation de l'objet representant l'experience
+#
+# Note importante:
+# On doit proceder a cette initialisation une seule fois. S'il y a un probleme de communication, le plus simple est de fermer Spyder et recommencer (en attendant que des instructions a ce propos soient ecrites).
+#	
 # lire visuellement la longueur d'onde sur le compteur du spectrometre
-# ex.: 5399
-m = mesure.Mesure(5399)
-# m represente l;instrument de mesure
+m = mesure.Mesure(5399)  # ici le spectrometre se trouve a 5399 Angstroms
+# m represente l'instrument de mesure
+# C'est en utilisant ses fonctions et methodes qu'on fait les mesures, deplace le spectrometre, etc.
+#
+# Aide et instructions
+help(m)  # Objet general representant la mesure. Fonctions disponibles, etc.
 
-#entrer la longueur d'onde du laser
-m.setLaser(5321)
 
-#entrer le decalage du spectrometre entre affichage et realite
-m.spectrometer.positionOffset = 0
-# faire une mesure sur un pic de longueur d'onde connue (voir par exemple plus bas pour la raie du Hg
-positionVraie = 5460.735
-positionMesure = 5458.97
+# ------- Longueur d'onde du laser (optionnel) ------- 
+#
+# Necessaire seulement pour les mesures Raman
+m.setLaser(5321)  # ici le laser est a 5321 Angstroms
+
+
+# ------- Position du spectrometre ------- 
+#
+# Lire
+m.A()  # en A
+m.wavenumber()  # en cm-1 relatif
+#
+# Deplacer
+m.A(position_cible_en_A)
+# ou
+m.wavenumber(position_cible_en_cm-1_relatif)
+
+
+# ------- Decalage du spectrometre ------- 
+#
+# Au besoin, entrer le decalage du spectrometre entre affichage et realite
+#
+# Etape 1
+m.spectrometer.positionOffset = 0  # on met le decalage a nul pour pouvoir le determiner
+#
+# Etape 2
+# Faire une mesure sur un pic de longueur d'onde connue (voir par exemple plus bas pour la raie du Hg)
+# Pour determiner la position mesuree, on peut deplacer le spectrometre (voir plus haut) jusqu'a ce que le pic soit au centre de la CCD (en visualisant dans Winspec le pixel 670).
+# Par exemple, ici lorsqu'on entre
+#     m.A(5458.97)
+# on constate (dans Winspec) que le pic est centree sur le pixel 670
+positionVraie = 5460.735  # Valeur tabulee
+positionMesure = 5458.97  # Valeur mesuree par la procedure de
 m.spectrometer.positionOffset = positionVraie - positionMesure
 
-#pour faire une mesure entre 150 et 550 cm-1
-#acquisition de 10 secondes par position
-#5 repetitions par position (a partir de 5, un algorithme enleve efficacement les pics du aux "rayons cosmiques"
-#chaque position est mesuree a 4 endroits differents sur la CCD (pour enlever le flatfield)
-#mesure en cm-1 relatif
 
-x,y = m.measureRange([150, 550], accTime=10, images=5, nOverlap=4, unit='cm-1')
+# ------- Mesure Raman ------- 
+#
+# Aide et instructions
+help(m.measureRange)  # Mesure en tant que tel
+#
+# Mesure Raman
+#
+# pour faire une mesure entre 150 et 550 cm-1
+# accTime: Acquisition de 10 secondes par position
+# images: 5 repetitions par position (a partir de 5, un algorithme enleve efficacement les pics du aux "rayons cosmiques"
+# nOverlap: Chaque position est mesuree a 4 endroits differents sur la CCD (pour enlever le flatfield). Autrement dit, chaque mesure successive se deplace de 1/4 de la plage totale de la CCD, donc chaque position est mesuree 4 fois.
+# mesure en cm-1 relatif
+x,y = m.measureRange([150, 550], unit='cm-1', accTime=10, images=5, nOverlap=4)
 
+
+# ------- Mesure Photoluminescence, etc ------- 
+#
+# Aide et instructions
+help(m.measureRange)  # Mesure en tant que tel
+#
 # pour mesurer la raie du Hg
 # mesure en Angstroem
-x,y = m.measureRange(5461, accTime=1, images=10, nOverlap=5, unit='A')
+# Ici la plage est un nombre seul (5461). Ce sera la position centrale de la CCD.
+x,y = m.measureRange(5461, accTime=1, images=10, unit='A')
+#
+# mesure entre 6500 et 6700 A
+# mesure en Angstroem
+x,y = m.measureRange([6500, 6700], unit='A'), accTime=1, images=10, nOverlap=5)
 \end{lstlisting}
+
+
+%\bibliographystyle{apsrev}
+%\bibliographystyle{plainnat}
+%\bibliography{references}
+
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+%\chapter*{Bibliographie}
+%\addcontentsline{toc}{chapter}{\textcolor{ocre}{Bibliographie}}
+%\section*{Livres}
+%\addcontentsline{toc}{section}{Livres}
+%\printbibliography[heading=bibempty,type=book]
+%\section*{Articles}
+%\addcontentsline{toc}{section}{Articles}
+%\printbibliography[heading=bibempty,type=article]
+
 
 
 %----------------------------------------------------------------------------------------
