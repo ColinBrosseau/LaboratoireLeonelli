@@ -870,6 +870,7 @@ Chaque ensemble de mirroir permet de couvrir une plage d'environ 100 nm (voir ta
     MOS-3    & 860 - 1015       & Ti:Sa\\
     MOS-4    & 550 - 660        & Colorant\\
   \end{tabular}
+%  \caption{Procédure d'alignement du Matisse}
   \label{tab:setMiroirsMatisse}
 \end{table}
 
@@ -930,9 +931,69 @@ La section~\ref{wavemeter} explique comment lire la longueur d'onde à partir de
 
 %----------------------------------------------------------------------------------------
 
+\section{Mira}\index{Mira (Ti:Saphire)}
+
+Le Mira est pompé par le Verdi. Ce laser Ti:Saphire est utilisable en mode continu et pulsé.
+
+\subsubsection{Démarrage}
+
+\begin{enumerate}
+\item Positionner en mode {\it CW} (contrôleur du Mira)
+\item Pomper avec le Verdi à pleine puissance (10 W)
+\item Attentre au moins 30 minutes
+\item Touner le {\it Biréfringent} pour sélectionner la longueur d'onde désirée
+\item Ouvrir complètement la fente de sortie
+\item Optimiser la puissance
+\end{enumerate}
+
+\subsubsection{Mode pulsé}
+\begin{enumerate}
+\item Procéder au démarrage
+\item Fermer la fente de sortie de manière à avoir la moitié de la puissance maximale
+\item Optimiser la puissance avec la position latérale de la fente de sortie
+\item Répéter 2 et 3 jusqu'à convergence
+\item Positionner en mode {\it beta lock}
+\item Surveiller la trace sur l'oscilloscope
+\item Ouvrir lentement la fente de sortie jusqu'à obtenir le mode pulsé (visible sur l'oscilloscope
+\end{enumerate}
+
+
+\subsubsection{Ajustement de la longueur d'onde}
+
+La longueur d'onde du Mira est déterminée par le {\it Biréfringent}.
+Le tableau \ref{table:positionVisMira} montre la correspondance mesurée en 2011.
+
+\begin{table}[htbp]
+  \caption{Correspondance entre la position de la vis et la longueur d'onde de sortie pour le laser Mira. (Valide en 2011-2017)}
+  \label{table:positionVisMira}
+  \centering
+%  \resizebox{\textwidth}{!}{%  
+    \begin{tabular}{cc}
+    Vis & Longueur d'onde  \\ \hline
+    ~      & (nm)       \\
+    5.90      & 710     \\
+    5.75      & 723     \\
+    5.50      & 744     \\
+    5.25      & 766     \\
+    5.00      & 790     \\
+    4.75      & 814     \\
+    4.50      & 839     \\
+    4.25      & 866     \\
+    4.00      & 892     \\
+    3.75      & 922     \\
+    \end{tabular}
+%  }
+\end{table}
+
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+
 \section{Millenia}\index{Millenia}
 
 Le Millenia (figure~\ref{fig:millenia}) sert à pomper le Matisse.
+
+\subsubsection{Contrôle de la puissance}
 
 La fa\c{c}on la plus simple d'utiliser ce laser est en mode manuel où les parametres sont ajustés au moyen de la boite de contrôle.
 On peut également contrôler 
