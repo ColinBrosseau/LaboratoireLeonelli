@@ -1364,10 +1364,8 @@ m = mesure.Mesure(5399)  # ici le spectrometre se trouve a 5399 Angstroms
 # Aide et instructions
 help(m)  # Objet general representant la mesure. Fonctions disponibles, etc.
 
-
-# ------- Longueur d'onde du laser (optionnel) ------- 
+# ------- Longueur d'onde du laser (necessaire pour mesure Raman) ------- 
 #
-# Necessaire seulement pour les mesures Raman
 m.setLaser(5321)  # ici le laser est a 5321 Angstroms
 
 
@@ -1401,12 +1399,63 @@ positionMesure = 5458.97  # Valeur mesuree par la procedure de
 m.spectrometer.positionOffset = positionVraie - positionMesure
 
 
-# ------- Mesure Raman ------- 
+# ------- Fonction de mesure -------
+#
+# La fonction measureRange sert a faire l'acquisition
 #
 # Aide et instructions
 help(m.measureRange)  # Mesure en tant que tel
+# def measureRange(self, Range , nOverlap=3, accTime=1, images=False, unit='cm-1', maskCCD=None, plot=True, spectroSlits=10, detector='CCD', rootFilename='.', baseFilename=None, sample='', comment=''):
+#        """
+#        Measure in a range of position
+#        Each point is garanted to come from the have the same number of points
+#        
+#        Range
+#            Range of the of measurement
+#            [Begin, End]
+#            End is optionnal. If omited, will take one window centered on Start
+#        nOverlap
+#            number of time the same position will be measured 
+#            (the CCD detector will be centered at different positions)
+#            (integer)
+#        accTime
+#            accumulation time per position per image (second)
+#            (float)
+#        images
+#            number of measurement from the same detector centered position
+#            If False (default) automaticaly choose the best setting
+#            (integer)
+#        unit
+#            unit of position
+#                'A'
+#                'cm-1' (default)
+#        maskCCD
+#            valid index on the CCD detector
+#                [firstValidIndex, lastValidIndex] (integers)
+#                ex.: [175, 1125] (default)
+#        spectroSlits
+#            width (mm) of the intermediary spectrometer slits
+#                1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+#            This determine the camera maskCCD
+#            (integer)
+#        detector
+#            Detector name
+#                'CCD'
+#                'PMT'
+#            (string)
+#        rootFilename
+#            directory where to save the data
+#            (string)            
+#        baseFilename
+#            leading part of filename (will be numbered)
+#                None: get current date in format AAMMDD
+#            (string)
+#        """
+
+
+# ------- Mesure Raman ------- 
 #
-# Mesure Raman
+# (Exemple)
 #
 # pour faire une mesure entre 150 et 550 cm-1
 # accTime: Acquisition de 10 secondes par position
@@ -1418,8 +1467,7 @@ x,y = m.measureRange([150, 550], unit='cm-1', accTime=10, images=5, nOverlap=4)
 
 # ------- Mesure Photoluminescence, etc ------- 
 #
-# Aide et instructions
-help(m.measureRange)  # Mesure en tant que tel
+# (Exemple)
 #
 # pour mesurer la raie du Hg
 # mesure en Angstroem
