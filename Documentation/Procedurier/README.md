@@ -1,10 +1,16 @@
 Fichiers source (LaTeX) pour produire le procédurier du laboratoire
 
+# Paquets nécessaires pour la compilation avec Latex
+- texlive-latexextra (cclicenses.sty, enumitem.sty, titletoc.sty, lipsum.sty)
+- texlive-bibtexextra (biblatex.sty)
+- texlive-pictures (smartdiagram.sty)
+- biber
+
 # Génération du fichier PDF
 
 ## Initialisation du style
 
-Nécessaire une seule fois
+(À faire une seule fois)
 
 -   makeindex procedurierLeonelli.idx -s StyleInd.ist
 
@@ -32,6 +38,20 @@ En utilisant make:
 |StyleInd.ist| Fichier de style|
 
 ## Todo
+
+- HydraHarp
+  - [X] lien vers les spécifications techniques
+  - [X] lien vers le logiciel
+  - utilisation avec Matlab:
+    - [ ] explication de la bibliothèque nécessaire
+    - [ ] trivista_hydra: code et procédure
+  - [ ] utilisation du logiciel propriétaire
+- Modulateurs Acousto-optiques
+  - [ ] Ajout documents scannées
+- Camera Pixis
+  - [ ] Détails de la procédure d'installation
+- Ordinateur U1000
+  - [ ] Installation des logiciels
 - Bomem
   - [X] Paramètres optimaux pour les différents détecteurs
   - [X] Procédure pour tranférer les données
@@ -42,10 +62,3 @@ En utilisant make:
   - [ ] débloquer manuellement le diaphragme
 - Feuille de temps
   - [X] Modèle de feuille d'utilisation du laboratoire (se baser sur le modèle de Ghaouti)
-- HydraHarp
-  - [X] lien vers les spécifications techniques
-  - [X] lien vers le logiciel
-  - [ ] utilisation avec Matlab: explication de la bibliothèque nécessaire
-  - [ ] utilisation du logiciel propriétaire
-- Modulateurs Acousto-optiques
-  - [ ] Ajout documents scannées
