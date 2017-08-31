@@ -4,6 +4,7 @@
 |Fichier|Fonction|
 |:---------|:----------|
 |test_mesure.py|Balayage U1000, Caméra ou PMT|
+|trivista_hydra.m|Mesures avec le Picoquant, balayages|
 
 ## Todo
 - [ ] Renomer test_mesure en ~ U1000scan

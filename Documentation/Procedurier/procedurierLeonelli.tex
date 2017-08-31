@@ -1309,6 +1309,34 @@ print(laser.realWavelength)
 %----------------------------------------------------------------------------------------
 \section{Photoluminescence résolue temporellement}\index{Photoluminescence résolue temporellement}
 
+Les expériences de photoluminescence résolue temporellement se font avec le module de Picoquant et le spectromètre Trivista.
+Dans Matlab, on utilise la fonction trivista\_hydra.
+Voir Code~\ref{lst:trivista_hydra} pour un exemple d'utilisation.
+
+\begin{lstlisting} [
+    caption={Mesure de photoluminescence résolue temporellement (PLRT) avec la Picoquant},
+    label={lst:trivista_hydra},
+    style      = Matlab-editor,
+]
+
+trivista_hydra() .... ???? ....
+  
+trivista_hydra('l',[400:10:450], 't',30, 'dat', 'o',1, 'r',64, 'f','output') 
+%Mesure la PLRT entre 400 et 450 nm par pas de 10 nm.
+%Chaque accumulation dure 30 secondes.
+%Cree des fichiers .dat (ascii) en plus des .mat.
+%Utilise l'ordre 1 du spectrometre.
+%Utilise une resolution de 64 ps.
+%Sauve dans les fichiers output.mat et output.dat
+
+trivista_hydra('l',[400:10:450], 't',2, 'b', 'f','output') 
+%Mesure la PL entre 400 et 450 nm par pas de 10 nm.
+%Chaque accumulation dure 2 secondes.
+%Sauve dans les fichiers output.mat
+
+\end{lstlisting}
+
+
 %----------------------------------------------------------------------------------------
 \newpage
 \section{Raman}\index{Raman}

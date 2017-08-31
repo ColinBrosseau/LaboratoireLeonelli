@@ -281,5 +281,5 @@ ENV/
 # Rope project settings
 .ropeproject
 
-
-
+# fichiers locaux de sortie
+procedurierLeonelli.pdf
