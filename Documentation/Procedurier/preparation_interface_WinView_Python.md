@@ -1,0 +1,11 @@
+
+- (console)
+    - conda install pywin32
+    - cd [repertoire dinstallation python]\Lib\site-packages\win32com\client
+    - python makepy.py
+        - choisir Roper Scientific's X WinX/32 v3.11 Type Library (3.b)
+        - choisir Roper Scientific's X WinX/32 v3.12 Type Library (3.c) ???
+- Récupérer le fichier
+    - [racine du disque système]\Documents and Settings\[usager]\Local Settings\Temp\gen\_py\[version de python]\1A762221-D8BA-11CF-AFC2-508201C10000x0x3x11.py
+    - [racine du disque système]\Documents and Settings\[usager]\Local Settings\Temp\gen\_py\[version de python]\1A762221-D8BA-11CF-AFC2-508201C10000x0x3x12.py ???
+- Le copier dans le répertoire des scripts de python

@@ -8,11 +8,11 @@ PROJNAME=procedurierLeonelli
 # You want latexmk to *always* run, because make does not have all the info.
 # Also, include non-file targets in .PHONY so they are run regardless of any
 # file of the given name existing.
-.PHONY: $(PROJNAME).pdf all clean
+.PHONY: convert $(PROJNAME).pdf all clean
 
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
-all: $(PROJNAME).pdf
+all: convert clean $(PROJNAME).pdf
 
 # CUSTOM BUILD RULES
 
@@ -44,4 +44,13 @@ cleanall:
 
 clean:
 	latexmk -c
+
+# Convert markdown in latex
+.PHONY: convert
+
+convert:
+	make -f Makefile_convert_markdown clean
+	make -f Makefile_convert_markdown convert
+	# enlever un fichier inutile
+	rm README.tex
 

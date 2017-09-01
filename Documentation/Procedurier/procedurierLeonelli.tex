@@ -80,8 +80,6 @@
 % Diagrammes (boites)
 \usepackage{smartdiagram}
 
-
-
 %----------------------------------------------------------------------------------------
 
 \input{structure} % Insert the commands.tex file which contains the majority of the structure behind the template
@@ -167,6 +165,43 @@
 %----------------------------------------------------------------------------------------
 
 \chapterimage{laser} % Chapter heading image
+
+\chapter{Ordinateurs}
+
+Cette section détaille les procédures requises pour installer les logiciels nécessaires à l'utilisation des instruments de mesure et équipements divers.
+
+\section{Caméras Princetons Instruments}
+
+\subsection{Pixis et PDA InGaAs}
+
+\subsubsection{Logiciel propriétaire}
+
+La caméra Pixis ne fonctionne pas avec la version 2.5 de Winspec.
+On doit installer la dernière version disponible (2.6.24) à l'adresse \url{ftp://ftp.piacton.com/Public/Software/Official/WinX32/WinSpec32.exe}
+Ce programme est protégé par mot de passe: 4KYRN7.
+
+\subsubsection{Contrôle avec Matlab et/ou Python}
+
+
+
+Installation des librairies
+???
+
+\subsection{CCD du U1000}
+
+Ce détecteur nécessite WinView pour fonctionner.
+
+\subsubsection{Contrôle par Python}
+
+
+    Préparation de l'interface WinSpec-Python
+
+\input{preparation_interface_WinView_Python.tex}
+    
+\section{Ordinateur du U1000}
+\section{Ordinateur du Trivista}
+\section{Ordinateur du Bomem}
+
 
 \chapter{Logiciels}
 
