@@ -865,6 +865,9 @@ Modifier le code ci-bas pour réfléter la nouvelle version.
 
 \end{lstlisting}
 
+
+La section \ref{Photoluminescence résolue temporellement} montre comment mesurer l'émission résolue temporellement (ou non) en balayant en longueur d'onde avec la fonction \lstinline{trivista_hydra}.
+
 %----------------------------------------------------------------------------------------
 
 \section{Lockin Zurich Instruments}\index{Lockin Zurich Instruments}
@@ -1348,6 +1351,7 @@ print(laser.realWavelength)
 
 %----------------------------------------------------------------------------------------
 \section{Photoluminescence résolue temporellement}\index{Photoluminescence résolue temporellement}
+\label{Photoluminescence résolue temporellement}
 
 Les expériences de photoluminescence résolue temporellement se font avec le module de Picoquant et le spectromètre Trivista.
 Dans Matlab, on utilise la fonction \lstinline{trivista_hydra}.
@@ -1357,7 +1361,7 @@ Dans Matlab, on utilise la fonction \lstinline{trivista_hydra}.
 Voir Code~\ref{lst:trivista_hydra} pour un exemple d'utilisation.
 
 \begin{lstlisting} [
-    caption={Exemples de photoluminescence résolue temporellement (PLRT) avec la Picoquant},
+    caption={Exemples de photoluminescence résolue temporellement (PLRT) et moyenné temporellement avec la Picoquant},
     label={lst:trivista_hydra},
     style      = Matlab-editor,
 ]
