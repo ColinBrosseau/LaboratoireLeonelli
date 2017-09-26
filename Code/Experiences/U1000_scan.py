@@ -7,12 +7,10 @@ Created on Tue Aug 18 09:34:26 2015
 
 """
 TODO
-    fix output file name (see microPhotoreflectance)
-    change this filename! Should be something like "scanU1000"
     fix file numbering while using mesureRange
     while using mesureRange, don't use save from mesure
 """
-
+ 
 import U1000
 import WinspecCOM as Winspec
 import RacalDana
@@ -578,7 +576,12 @@ class Mesure():
                 xx = [x]
                 yy = [y]
                 
-        x,y = testMerge.merge(xx,yy)
+        # export raw data
+        #np.save('dumpX.npy', xx)        
+        #np.save('dumpY.npy', yy)  
+        np.savez('dumpXY.npz', x=xx, y=yy)
+                
+        x,y = testMerge.merge(xx, yy)
         
         if unit == 'cm-1':
 #            x = 1e8 * (1/self.laser - 1/x)  # convert to A
