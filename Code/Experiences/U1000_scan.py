@@ -271,7 +271,8 @@ class Mesure():
             if maskCCD is None:
                 if spectroSlits == 10:
 #                    maskCCD = [163, 1143]
-                    maskCCD = [170, 1120]  # corrige le 12 novembre 2015
+#                    maskCCD = [170, 1120]  # corrige le 12 novembre 2015
+                    maskCCD = [200, 1110]  # corrige le 8 septembre 2016
                 elif spectroSlits == 9:
                     maskCCD = [169, 1095]
                 elif spectroSlits == 8:
