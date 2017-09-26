@@ -405,6 +405,7 @@ class Mesure():
             state['comment'] = comment
             state['date'] = time.strftime('%Y%m%d%H%M%S')
             state['measureTime_s'] = tMeasure
+            state['laser_A'] = self.laser
             print(ordered_dump(state))
             with open(outFilename + ".yaml", 'w') as outfile:
                 outfile.write(ordered_dump(state))
