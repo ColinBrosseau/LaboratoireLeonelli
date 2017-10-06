@@ -159,18 +159,35 @@
 %----------------------------------------------------------------------------------------
 
 %\part{Première partie}
- 
+
+
+\chapter{Entretien}
+
+\input{entretien-periodique.tex}
+
 %----------------------------------------------------------------------------------------
 %	CHAPTER 1
 %----------------------------------------------------------------------------------------
 
-\chapterimage{laser} % Chapter heading image
 
 \chapter{Ordinateurs}
 
 Cette section détaille les procédures requises pour installer les logiciels nécessaires à l'utilisation des instruments de mesure et équipements divers.
 
 \section{Caméras Princetons Instruments}
+
+\subsection{PVCAM}
+
+PVCAM\footnote{\url{ftp://ftp.piacton.com/Public/Software/Official/PVCAM/???}} est une librairie permettant de contrôler les détecteurs de Princeton Instruments avec Matlab ou Python.
+Nous utilisons la dernière version disponible soit la 2.7.
+
+Note sur Matlab:
+\begin{itemize}
+\item Matlab 7.0.4 est non compatible avec PVCAM à cause d'un bug dans la fonction loadlibrary.m 
+\item Matlab 7.3.0 est compatible
+\end{itemize}
+
+
 
 \subsection{Pixis et PDA InGaAs}
 
@@ -180,24 +197,47 @@ La caméra Pixis ne fonctionne pas avec la version 2.5 de Winspec.
 On doit installer la dernière version disponible (2.6.24) à l'adresse \url{ftp://ftp.piacton.com/Public/Software/Official/WinX32/WinSpec32.exe}
 Ce programme est protégé par mot de passe: 4KYRN7.
 
-\subsubsection{Contrôle avec Matlab et/ou Python}
-
-
-
-Installation des librairies
-???
-
 \subsection{CCD du U1000}
 
+\subsubsection{Logiciel propriétaire}
+
 Ce détecteur nécessite WinView pour fonctionner.
+On doit installer la dernière version disponible (2.6.24) à l'adresse \url{ftp://ftp.piacton.com/Public/Software/Official/WinX32/WinView32.exe}
+Ce programme est protégé par mot de passe: FYGH87.
 
-\subsubsection{Contrôle par Python}
+%% \subsubsection{Contrôle par Python}
 
+%%     Préparation de l'interface WinSpec-Python
 
-    Préparation de l'interface WinSpec-Python
-
-\input{preparation_interface_WinView_Python.tex}
+%% \input{preparation_interface_WinView_Python.tex}
     
+\section{Sauvegarde des ordinateurs}
+
+Pour chaque ordinateur, il existe deux copies des données contenue sur le disque dur.
+La copie courante permet de récupérer des fichiers tel qu'ils étaient lors de la dernière synchonisation.
+La copie de base permet de réinstaller un ordinateur d'un seul coup.
+
+\subsection{Copie courante}
+La copie la plus récente est effectuée par synchronisation de tous les fichiers sur un disque dur externe.
+Ces fichiers sont accessibles directement sur le disque dur externe.
+
+La synchronisation se fait au moyen du logiciel Synkron (logiciel libre).
+Ce logiciel\footnote{\url{https://portableapps.com/apps/utilities/synkron_portable}} est déjà installé sur le disque dur externe de sauvegarde (répertoire Synkron ???).
+
+\input{utilisation_de_Synkron.tex}
+
+
+\subsection{Copie de base}
+La deuxième copie consiste en une image mirroir du disque dur système.
+Les images reproduisent à l'identique le disque dur ce qui permet de réinstaller un système fonctionnel.
+
+Les images se font à partir du logiciel Clonezilla (logiciel libre).
+On démarre l'ordinateur à d'un disque CD/DVD bootable sur lequel se trouve Clonezilla.
+
+Voir \url{http://www.commentcamarche.net/faq/20942-clonezilla-cloner-son-systeme-configure} pour une procédure détaillée sur l'utilisation de ce logiciel.
+
+
+
 \section{Ordinateur du U1000}
 \section{Ordinateur du Trivista}
 \section{Ordinateur du Bomem}
