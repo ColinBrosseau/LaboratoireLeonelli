@@ -1,0 +1,9 @@
+- Démarrer Synkron (???/???/synkron.exe)
+- Charger la configuration
+    - Menu
+    - etc
+    - etc
+- Démarrer la synchronisation
+    - Cliquer ici...
+- Quitter le programme Synkron
+- Éjecter le disque dur externe

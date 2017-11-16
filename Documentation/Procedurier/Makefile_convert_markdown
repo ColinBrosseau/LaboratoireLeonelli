@@ -23,7 +23,7 @@ PANDOC_TEX_OPTIONS=
 %.tex : %.md
 	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_TEX_OPTIONS) -o $@ $<
 	# ajouter un entete
-	sed -i '1s;^;%\n\% Fichier .tex genere automatiquement a partir de son pendant .md\n% Ne pas editer\n%\n\n;' $@
+	sed -i '1s;^;%\n\% Fichier .tex genere automatiquement a partir de son pendant markdown\n% Ne pas editer SVP\n%\n\n;' $@
 	# enlever une chaine qui prend un package special de latex
 	sed -i 's;\\tightlist;;g' $@
 	sed -i 's:\.md:.tex:g' $@
